@@ -33,10 +33,23 @@ const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
      0.56 ─ 0.93   it comes back together         (frame 201 → 1)
      0.93 ─ 1.00   assembled, closing beat
    ─────────────────────────────────────────────────────────────── */
+/* Portrait phones run a shorter theatre in absolute pixels, so the desktop
+   fractions land far too early there: `heroOut` ending at 0.055 wiped the
+   headline after roughly 35px of scroll — less than one thumb flick. The
+   portrait timeline holds the hero for a real beat and starts the explosion
+   only once the copy is on its way out. */
+const PORTRAIT_THEATRE = window.innerWidth < 820;
+
 /* Retimed for a 640vh theatre with the holds squeezed out. The pixel length
    of `explode` and `assemble` is the same as it was at 760vh — only the
    waiting either side of them was removed. */
-const T = {
+const T = PORTRAIT_THEATRE ? {
+  camera:   0.200,
+  heroOut:  [0.050, 0.165],
+  explode:  [0.110, 0.560],
+  hold:     [0.560, 0.605],
+  assemble: [0.605, 0.984],
+} : {
   camera:   0.080,          // hero framing → centred framing
   heroOut:  [0.008, 0.055],
   explode:  [0.020, 0.512],
@@ -44,9 +57,24 @@ const T = {
   assemble: [0.545, 0.984],
 };
 
-/* Kept in lockstep with the card windows below, so the readout never
-   names a phase other than the one on screen. */
-const PHASES = [
+/* Where the portrait band parks while the hero copy is up — clear of the
+   header, with the copy in the space below it. Matches the `top` in the CSS,
+   which is the value that applies before the first paint. */
+const BAND_TOP = 64;
+
+/* Kept in lockstep with the frame windows above, so the readout never
+   names a phase other than the one on screen. The portrait list is the
+   desktop one remapped through the portrait explode/assemble windows. */
+const PHASES = PORTRAIT_THEATRE ? [
+  [0.000, 'Ready to build'],
+  [0.165, 'Drawings & approval'],
+  [0.293, 'Structure'],
+  [0.439, 'Envelope & services'],
+  [0.560, 'Full component view'],
+  [0.670, 'Interiors'],
+  [0.877, 'Handover'],
+  [0.959, 'Keys ready'],
+] : [
   [0.000, 'Ready to build'],
   [0.080, 'Drawings & approval'],
   [0.220, 'Structure'],
@@ -60,6 +88,7 @@ const PHASES = [
 /* ═══════════ 1. FRAME THEATRE ═══════════ */
 
 const canvas   = $('#stageCanvas');
+const stageEl  = $('.stage');
 const theatre  = $('.theatre');
 const hero     = $('#hero');
 const lead     = $('#stageLead');
@@ -72,7 +101,11 @@ const seq = new FrameSequence(canvas, {
   total: TOTAL_FRAMES,
   path: framePath,
   backdrop: ['#C9C8CD', '#A4A3A9'],
-  zoomCap: window.innerWidth < 820 ? 1.55 : 1.24,
+  // Portrait draws into an 8:5 band (see the 820px query), which needs only
+  // ~1.11x to cover. The cap is above that so the band is covered exactly —
+  // no stretched edge rows — while staying far below the ~3.8x that filling
+  // a whole portrait screen would demand.
+  zoomCap: window.innerWidth < 820 ? 1.35 : 1.24,
 });
 
 const cards = $$('.card').map((el) => ({
@@ -129,13 +162,29 @@ function paintTheatre(p) {
      back to centre and full size for the disassembly */
   const cam = easeInOut(clamp01(p / T.camera));
   const portrait = window.innerWidth < 820;
+
   seq.setFraming({
-    // Portrait keeps the model in the upper field throughout — the copy and
-    // the spec cards own the lower half.
+    // Portrait covers its band exactly, so every offset is zero: any shift or
+    // boost would either crop the elevation further or expose a stretched edge.
+    // Its camera move is the band sliding down the stage instead — see below.
     shiftX: portrait ? 0 : lerp(0.115, 0, cam),
-    shiftY: portrait ? lerp(-0.19, -0.13, cam) : lerp(0.028, 0, cam),
-    zoomBoost: lerp(portrait ? 1.12 : 1.15, 1, cam),
+    shiftY: portrait ? 0 : lerp(0.028, 0, cam),
+    zoomBoost: portrait ? 1 : lerp(1.15, 1, cam),
   });
+
+  /* Portrait's camera move: the band sits under the header while the hero copy
+     holds the space beneath it, then slides to the middle of the stage once the
+     copy has gone, so the sequence plays centred rather than parked at the top
+     with the whole lower screen empty. */
+  if (portrait) {
+    const bandH = canvas.clientHeight;
+    const stageH = stageEl.clientHeight;
+    if (bandH && stageH) {
+      canvas.style.top = `${lerp(BAND_TOP, (stageH - bandH) / 2, cam).toFixed(1)}px`;
+    }
+  } else if (canvas.style.top) {
+    canvas.style.top = '';
+  }
 
   /* hero — dissolves upward as the first joint opens */
   const h = clamp01((p - T.heroOut[0]) / (T.heroOut[1] - T.heroOut[0]));
@@ -352,8 +401,14 @@ function initChrome() {
   burger.addEventListener('click', () => {
     // The menu locks body scroll, so the easing has to stand down or it
     // keeps writing scroll positions behind the overlay.
-    if (document.body.classList.toggle('menu-open')) smooth.pause();
-    else smooth.resume();
+    if (document.body.classList.toggle('menu-open')) {
+      // Opening while scrolled down would otherwise leave the bar parked
+      // off-screen by hide-on-scroll, taking the close button with it.
+      nav.classList.remove('hide');
+      smooth.pause();
+    } else {
+      smooth.resume();
+    }
   });
 
   $$('a[href^="#"]').forEach((a) => {
@@ -625,7 +680,7 @@ async function boot() {
   setTimeout(() => seq.loadRest(isMobile ? 3 : 5), isMobile ? 1200 : 900);
 
   window.addEventListener('resize', () => {
-    seq.zoomCap = window.innerWidth < 820 ? 1.55 : 1.24;
+    seq.zoomCap = window.innerWidth < 820 ? 1.35 : 1.24;
     measureTheatre();
     updateFrame();
   }, { passive: true });

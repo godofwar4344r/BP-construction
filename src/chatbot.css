@@ -408,10 +408,18 @@
   transform: scale(1.05);
 }
 
+/* The nav overlay owns the screen when it is open; a floating launcher on top
+   of it reads as a stuck element. */
+body.menu-open .bp-chat-launcher {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(18px) scale(0.8);
+}
+
 /* ── Mobile Tweaks ── */
 @media (max-width: 480px) {
   .bp-chat-launcher {
-    bottom: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
     right: 16px;
     padding: 7px 14px 7px 9px;
   }
@@ -424,4 +432,15 @@
     border-radius: 0;
     border: none;
   }
+  /* Clear the notch and the home indicator — the page sets viewport-fit=cover,
+     so the window really does run edge to edge. */
+  .bp-chat-header { padding-top: calc(12px + env(safe-area-inset-top)) }
+  .bp-chat-footer { padding-bottom: calc(10px + env(safe-area-inset-bottom)) }
+  /* Under 16px iOS zooms the page in on focus and does not zoom back out. */
+  .bp-chat-input { font-size: 16px }
+  /* Close and send are the two controls a thumb has to hit; 29px is not enough. */
+  .bp-chat-header__btn { width: 40px; height: 40px }
+  .bp-chat-send-btn { width: 36px; height: 36px }
+  .bp-chat-suggestions { gap: 8px }
+  .bp-chip { font-size: 12px; padding: 9px 12px; border-radius: 14px }
 }
