@@ -1,19 +1,17 @@
 /**
  * FrameSequence
- * Scroll-scrubbed image sequence renderer.
+ * Highly optimized, low-latency scroll-scrubbed image sequence renderer.
  *
- *  · Progressive two-wave loading — a strided "skeleton" pass gets the
- *    experience on screen fast, the in-between frames fill in silently.
- *  · Nearest-loaded fallback, so a frame that hasn't arrived yet never
- *    blanks the stage.
- *  · DPR-aware, width-priority fit that keeps the model intact instead of
- *    cropping its edges on narrow viewports.
+ *  · Mobile-optimized DPR scaling to prevent GPU fill-rate thermal throttling.
+ *  · Off-main-thread async image decoding (img.decode).
+ *  · Smart dirty-checking — halts RAF when settled to eliminate CPU/GPU drain.
+ *  · Width-priority viewport fit with seamless edge extension.
  */
 
 export class FrameSequence {
   constructor(canvas, { total, path, backdrop = ['#C8C7CC', '#A6A5AA'], zoomCap = 1.28 }) {
     this.canvas = canvas;
-    this.ctx = canvas.getContext('2d', { alpha: false });
+    this.ctx = canvas.getContext('2d', { alpha: false, desynchronized: true });
     this.total = total;
     this.path = path;
     this.backdrop = backdrop;
@@ -26,27 +24,19 @@ export class FrameSequence {
     this.target = 0;   // desired frame (float)
     this.current = 0;  // eased frame (float)
 
-    // Framing — a slow push/settle driven by the page, so the model can
-    // yield the left third to the headline and then take centre stage.
-    this.shiftX = 0;     // fraction of canvas width
-    this.shiftY = 0;     // fraction of canvas height
+    this.shiftX = 0;
+    this.shiftY = 0;
     this.zoomBoost = 1;
 
     this.drawn = '';
-    // How hard the drawn frame chases the scroll target. The scroll itself is
-    // already eased by SmoothScroll, so this stays fairly snappy — easing both
-    // stages hard makes the model visibly trail the page.
-    this.lerp = 0.14;
+    this.lerp = 0.18; // snappy tracking for low-latency feel
     this.raf = null;
+    this.isTicking = false;
 
     this._onResize = this._onResize.bind(this);
     this._tick = this._tick.bind(this);
     window.addEventListener('resize', this._onResize, { passive: true });
 
-    // The window `resize` event alone isn't enough: a stage that is laid out
-    // at zero (hidden tab, pane not yet composited, font/layout settling)
-    // would otherwise stay blank forever. Observing the element itself means
-    // the first real measurement always repaints.
     if ('ResizeObserver' in window) {
       this._ro = new ResizeObserver(() => this._onResize());
       this._ro.observe(canvas);
@@ -60,41 +50,46 @@ export class FrameSequence {
       if (this.ready[i]) return resolve();
       const img = new Image();
       img.decoding = 'async';
-      const done = () => {
+      img.onload = async () => {
+        try {
+          if ('decode' in img) await img.decode();
+        } catch {
+          // ignore decode errors on older engines
+        }
         this.images[i] = img;
         this.ready[i] = true;
         this.readyCount++;
         resolve();
       };
-      img.onload = done;
-      img.onerror = () => resolve(); // stays unready → nearest-loaded covers it
+      img.onerror = () => resolve();
       img.src = this.path(i + 1);
     });
   }
 
-  /** Strided skeleton pass. Resolves once the sequence is watchable. */
+  /** Strided skeleton pass for instant interactivity. */
   async loadSkeleton(stride, onProgress) {
     const idx = [];
     for (let i = 0; i < this.total; i += stride) idx.push(i);
     if (idx[idx.length - 1] !== this.total - 1) idx.push(this.total - 1);
 
     let done = 0;
-    // First frame first, so the stage is never empty behind the loader.
     await this._loadOne(0);
     this.draw(0);
     onProgress?.(++done / idx.length);
 
-    await this._pool(idx.slice(1), 8, async (i) => {
+    const concurrency = window.innerWidth < 820 ? 4 : 8;
+    await this._pool(idx.slice(1), concurrency, async (i) => {
       await this._loadOne(i);
       onProgress?.(++done / idx.length);
     });
   }
 
-  /** Everything that's left, in the background, gently. */
-  loadRest(concurrency = 5) {
+  /** Background progressive loader. */
+  loadRest(concurrency = 4) {
     const rest = [];
     for (let i = 0; i < this.total; i++) if (!this.ready[i]) rest.push(i);
-    return this._pool(rest, concurrency, (i) => this._loadOne(i));
+    const limit = window.innerWidth < 820 ? Math.min(concurrency, 3) : concurrency;
+    return this._pool(rest, limit, (i) => this._loadOne(i));
   }
 
   async _pool(items, limit, worker) {
@@ -105,33 +100,46 @@ export class FrameSequence {
     await Promise.all(runners);
   }
 
-  /* ── playback ────────────────────────────────────────────── */
+  /* ── playback & rendering ────────────────────────────────── */
 
   setFrame(f) {
     this.target = Math.max(0, Math.min(this.total - 1, f));
+    this.wake();
   }
 
-  /** Snap without easing — used on first paint. */
   jumpTo(f) {
     this.setFrame(f);
     this.current = this.target;
     this.draw(Math.round(this.current));
   }
 
+  wake() {
+    if (!this.isTicking) {
+      this.isTicking = true;
+      this.raf = requestAnimationFrame(this._tick);
+    }
+  }
+
   start() {
-    if (!this.raf) this.raf = requestAnimationFrame(this._tick);
+    this.wake();
   }
 
   _tick() {
     const d = this.target - this.current;
-    if (Math.abs(d) > 0.004) {
+    if (Math.abs(d) > 0.005) {
       this.current += d * this.lerp;
       this.draw(Math.round(this.current));
+      this.raf = requestAnimationFrame(this._tick);
+    } else {
+      if (this.current !== this.target) {
+        this.current = this.target;
+        this.draw(Math.round(this.current));
+      }
+      this.isTicking = false;
+      this.raf = null;
     }
-    this.raf = requestAnimationFrame(this._tick);
   }
 
-  /** Closest frame we actually have pixels for. */
   _nearest(i) {
     if (this.ready[i]) return i;
     for (let r = 1; r < this.total; r++) {
@@ -141,13 +149,13 @@ export class FrameSequence {
     return -1;
   }
 
-  /* ── rendering ───────────────────────────────────────────── */
-
-  /** Reframe without changing which frame is showing. */
   setFraming({ shiftX = 0, shiftY = 0, zoomBoost = 1 } = {}) {
-    this.shiftX = shiftX;
-    this.shiftY = shiftY;
-    this.zoomBoost = zoomBoost;
+    if (this.shiftX !== shiftX || this.shiftY !== shiftY || this.zoomBoost !== zoomBoost) {
+      this.shiftX = shiftX;
+      this.shiftY = shiftY;
+      this.zoomBoost = zoomBoost;
+      this.wake();
+    }
   }
 
   _onResize() {
@@ -157,21 +165,24 @@ export class FrameSequence {
   }
 
   resize() {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const isMobile = window.innerWidth < 820;
+    // Cap DPR on mobile to 1.25 to prevent memory exhaustion and stutter
+    const maxDpr = isMobile ? 1.25 : 1.75;
+    const dpr = Math.min(window.devicePixelRatio || 1, maxDpr);
+    
     const w = this.canvas.clientWidth || window.innerWidth;
     const h = this.canvas.clientHeight || window.innerHeight;
     this.canvas.width = Math.round(w * dpr);
     this.canvas.height = Math.round(h * dpr);
     this.ctx.imageSmoothingEnabled = true;
-    this.ctx.imageSmoothingQuality = 'high';
+    this.ctx.imageSmoothingQuality = isMobile ? 'medium' : 'high';
   }
 
   draw(i) {
     const idx = this._nearest(i);
     if (idx < 0) return;
 
-    // Framing is animated, so the cache key has to include it.
-    const key = `${idx}|${this.shiftX.toFixed(4)}|${this.shiftY.toFixed(4)}|${this.zoomBoost.toFixed(4)}`;
+    const key = `${idx}|${this.shiftX.toFixed(3)}|${this.shiftY.toFixed(3)}|${this.zoomBoost.toFixed(3)}`;
     if (key === this.drawn) return;
 
     const img = this.images[idx];
@@ -180,8 +191,8 @@ export class FrameSequence {
     let cw = this.canvas.width;
     let ch = this.canvas.height;
     if (!cw || !ch) {
-      if (!this.canvas.clientWidth) return;   // genuinely no layout yet
-      this.resize();                          // measured late — recover now
+      if (!this.canvas.clientWidth) return;
+      this.resize();
       cw = this.canvas.width;
       ch = this.canvas.height;
       if (!cw || !ch) return;
@@ -189,16 +200,13 @@ export class FrameSequence {
 
     const ctx = this.ctx;
 
-    // Studio backdrop, so letterboxed bands blend into the plate.
+    // Gradient background
     const g = ctx.createRadialGradient(cw * 0.5, ch * 0.44, 0, cw * 0.5, ch * 0.44, Math.max(cw, ch) * 0.78);
     g.addColorStop(0, this.backdrop[0]);
     g.addColorStop(1, this.backdrop[1]);
     ctx.fillStyle = g;
     ctx.fillRect(0, 0, cw, ch);
 
-    // Width-priority fit: the model keeps its silhouette on every viewport.
-    // Taller-than-source viewports get a capped zoom so it never floats
-    // small in a sea of grey.
     const ratio = img.naturalWidth / img.naturalHeight;
     const fitH = cw / ratio;
     const zoom = Math.min(Math.max(ch / fitH, 1), this.zoomCap) * this.zoomBoost;
@@ -208,11 +216,7 @@ export class FrameSequence {
     const dx = (cw - dw) / 2 + this.shiftX * cw;
     const dy = (ch - dh) / 2 + this.shiftY * ch;
 
-    // A 16:9 plate can't cover a tall phone screen without destroying the
-    // composition, so it letterboxes. Rather than leave grey bands with a
-    // visible seam, stretch the plate's own top and bottom edge rows to fill
-    // them — the studio backdrop is a smooth gradient there, so it reads as
-    // one continuous surface.
+    // Edge extension for tall screens
     const iw = img.naturalWidth;
     const ih = img.naturalHeight;
     const EDGE = 2;
@@ -226,7 +230,6 @@ export class FrameSequence {
     }
 
     ctx.drawImage(img, dx, dy, dw, dh);
-
     this.drawn = key;
   }
 

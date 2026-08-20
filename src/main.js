@@ -185,27 +185,49 @@ function paintTheatre(p) {
   if (hudPhase.textContent !== label) hudPhase.textContent = label;
 }
 
+let theatreTop = 0;
+let theatreSpan = 1;
 let theatreP = 0;
+let lastP = -1;
+let rafPending = false;
+
 function measureTheatre() {
   const rect = theatre.getBoundingClientRect();
-  const span = theatre.offsetHeight - window.innerHeight;
-  theatreP = span > 0 ? clamp01(-rect.top / span) : 0;
+  theatreTop = rect.top + window.scrollY;
+  theatreSpan = Math.max(1, theatre.offsetHeight - window.innerHeight);
+  theatreP = clamp01((window.scrollY - theatreTop) / theatreSpan);
+}
+
+function updateFrame() {
+  const y = window.scrollY;
+  theatreP = clamp01((y - theatreTop) / theatreSpan);
+  if (Math.abs(theatreP - lastP) > 0.0004) {
+    paintTheatre(theatreP);
+    lastP = theatreP;
+  }
+}
+
+function onScroll() {
+  if (!rafPending) {
+    rafPending = true;
+    requestAnimationFrame(() => {
+      updateFrame();
+      rafPending = false;
+    });
+  }
 }
 
 /* ═══════════ 2. SMOOTH SCROLL ═══════════ */
 
-/* Inertial easing on the scroll. This is what gives the frame sequence its
-   glide — a bare wheel notch advances ~25 frames at once, and the easing is
-   what turns that into a sweep instead of a jump. It only smooths; it never
-   decides where the reader lands (the old section-snapping is gone). */
 const smooth = new SmoothScroll({ lerp: 0.09 });
 
 /* ═══════════ 3. RENDER LOOP ═══════════ */
 
-function loop() {
+function startScrollSync() {
   measureTheatre();
-  paintTheatre(theatreP);
-  requestAnimationFrame(loop);
+  updateFrame();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('touchmove', onScroll, { passive: true });
 }
 
 /* ═══════════ 4. REVEALS & SPLIT TEXT ═══════════ */
@@ -565,8 +587,9 @@ async function boot() {
 
   seq.resize();
 
+  const isMobile = window.innerWidth < 820;
   const t0 = performance.now();
-  await seq.loadSkeleton(6, (p) => {
+  await seq.loadSkeleton(isMobile ? 8 : 6, (p) => {
     const pct = Math.round(p * 100);
     loaderBar.style.width = `${pct}%`;
     loaderPct.textContent = String(pct).padStart(2, '0');
@@ -583,8 +606,6 @@ async function boot() {
   seq.start();
 
   loader.classList.add('done');
-  // Drop it entirely once faded — a full-screen fixed layer left in the tree
-  // keeps compositing and ghosts faintly over the page.
   setTimeout(() => loader.remove(), 1100);
   document.body.classList.remove('is-loading');
   requestAnimationFrame(() => document.body.classList.add('ready'));
@@ -598,14 +619,15 @@ async function boot() {
   new BPChatbot();
 
   if (!reduced) smooth.enable();
-  loop();
+  startScrollSync();
 
   // Fill in the in-between frames once the entrance has played out.
-  setTimeout(() => seq.loadRest(5), 900);
+  setTimeout(() => seq.loadRest(isMobile ? 3 : 5), isMobile ? 1200 : 900);
 
   window.addEventListener('resize', () => {
     seq.zoomCap = window.innerWidth < 820 ? 1.55 : 1.24;
     measureTheatre();
+    updateFrame();
   }, { passive: true });
 
   if (pinned) {
