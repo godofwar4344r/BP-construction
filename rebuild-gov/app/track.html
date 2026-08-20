@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>आवेदन की स्थिति | Track Application · Apuni Sarkar</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div id="site-govstrip"></div>
+<div id="site-masthead"></div>
+<div id="site-navbar"></div>
+<nav id="site-breadcrumb"></nav>
+
+<div class="layout">
+  <aside class="sidebar" id="site-sidebar"></aside>
+
+  <main id="main">
+    <div class="page-head">
+      <h1 id="page-title"></h1>
+      <p id="page-sub"></p>
+    </div>
+
+    <section class="card">
+      <label for="q" id="q-label"></label>
+      <div class="field-row">
+        <div><input type="search" id="q" autocomplete="off"></div>
+        <button class="btn btn-icon" id="btn-mic" type="button" title="Search by voice"></button>
+      </div>
+      <div class="small muted" id="live" style="margin-top:.5rem;min-height:1.2rem" aria-live="polite"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 id="list-title"></h2>
+        <span class="sub" id="list-count"></span>
+      </div>
+      <div id="list"></div>
+      <div class="card" id="empty" hidden></div>
+    </section>
+  </main>
+</div>
+
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/icons.js"></script>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/nlu.js"></script>
+<script src="../assets/js/voice-engine.js"></script>
+<script src="../assets/js/digilocker.js"></script>
+<script src="../assets/js/app.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var hi;
+
+  App.init({ base: '../', page: 'track' }).then(function () {
+    hi = Store.lang === 'hi';
+    Voice.init({ provider: 'webspeech', lang: Store.lang });
+
+    document.getElementById('page-title').textContent = Store.t('navTrack');
+    document.getElementById('page-sub').textContent = hi
+      ? 'अपनी आवेदन संख्या बोलिए या टाइप कीजिए। नीचे आपके सभी आवेदन दिख रहे हैं।'
+      : 'Say or type your application number. All your applications are listed below.';
+    document.getElementById('q-label').textContent = Store.t('appNumber');
+    document.getElementById('q').placeholder = 'ES09/2026/DEH/100000';
+    document.getElementById('list-title').textContent = hi ? 'आपके आवेदन' : 'Your applications';
+    document.getElementById('btn-mic').innerHTML = App.icon('mic', 18);
+
+    render();
+    wire();
+
+    // Applications advance with time in the demo; keep the view fresh.
+    setInterval(render, 15000);
+  });
+
+  function render() {
+    var q = (document.getElementById('q').value || '').trim().toLowerCase();
+    var apps = Store.applications();
+
+    if (q) {
+      apps = apps.filter(function (a) {
+        return a.id.toLowerCase().indexOf(q) !== -1 ||
+               (hi ? a.serviceHi : a.serviceEn).toLowerCase().indexOf(q) !== -1;
+      });
+    }
+
+    document.getElementById('list-count').textContent =
+      apps.length + ' ' + (hi ? 'आवेदन' : 'applications');
+
+    var list = document.getElementById('list');
+    list.innerHTML = '';
+
+    var empty = document.getElementById('empty');
+    if (!apps.length) {
+      empty.hidden = false;
+      empty.innerHTML =
+        '<p class="muted" style="margin:0 0 1rem">' + Store.t('noApplications') + '</p>' +
+        '<a class="btn" href="apply.html">' + App.icon('mic', 17) + Store.t('applyNow') + '</a>';
+      return;
+    }
+    empty.hidden = true;
+
+    apps.forEach(function (app) { list.appendChild(card(app)); });
+  }
+
+  function card(app) {
+    var stage = Store.stageOf(app);
+    var stages = Store.stages();
+    var done = stage >= stages.length;
+
+    var el = document.createElement('div');
+    el.className = 'card';
+    el.style.marginBottom = '1rem';
+
+    el.innerHTML =
+      '<div class="card-head" style="align-items:flex-start">' +
+        '<div style="display:flex;gap:.9rem;align-items:flex-start;min-width:0">' +
+          '<span class="svc-icon" style="flex:none">' +
+            Icons.forService({ slug: app.serviceSlug }, 21) + '</span>' +
+          '<div style="min-width:0">' +
+            '<h2 style="font-size:1.05rem;margin:0">' +
+              App.escape(hi ? app.serviceHi : app.serviceEn) + '</h2>' +
+            '<div class="small muted">' + App.escape(hi ? app.deptHi : app.deptEn) + '</div>' +
+            '<div class="small num" style="margin-top:.35rem"><strong>' +
+              App.escape(app.id) + '</strong></div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="text-align:right;flex:none">' +
+          '<span class="pill ' + (done ? 'pill-green' : 'pill-blue') + '">' +
+            (done ? App.icon('check', 12) + Store.t('st_issued') : Store.t(stages[stage - 1])) +
+          '</span>' +
+          '<div class="tiny muted" style="margin-top:.4rem">' +
+            App.formatDateTime(app.submittedAt) + '</div>' +
+        '</div>' +
+      '</div>' +
+
+      '<ul class="timeline">' +
+        stages.map(function (s, i) {
+          var cls = (i + 1 < stage) ? 'done' : (i + 1 === stage ? 'current' : 'pending');
+          return '<li class="' + cls + '">' +
+                 '<span class="t-label">' + Store.t(s) + '</span>' +
+                 (i + 1 === stage && !done
+                   ? '<div class="tiny muted">' + (hi ? 'अभी यहाँ है' : 'Currently here') + '</div>'
+                   : '') +
+                 '</li>';
+        }).join('') +
+      '</ul>' +
+
+      '<div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.5rem">' +
+        '<span class="pill">' + Store.t('fee') + ': ₹' + app.charge + '</span>' +
+        '<span class="pill">' + App.icon('clock', 12) + app.slaDays + ' ' + Store.t('days') + '</span>' +
+        (app.channel === 'voice'
+          ? '<span class="pill pill-blue">' + App.icon('mic', 12) + (hi ? 'आवाज़ से' : 'By voice') + '</span>'
+          : '') +
+        (app.documents && app.documents.length
+          ? '<span class="pill pill-green">' + App.icon('folder', 12) + app.documents.length + '</span>'
+          : '') +
+      '</div>' +
+
+      (done
+        ? '<div style="margin-top:1rem"><button class="btn btn-green" data-dl="1">' +
+          App.icon('download', 16) + (hi ? 'प्रमाण पत्र डाउनलोड करें' : 'Download certificate') +
+          '</button></div>'
+        : '') +
+
+      '<details style="margin-top:1rem"><summary class="small muted" style="cursor:pointer">' +
+        (hi ? 'भरी गई जानकारी देखें' : 'View submitted details') + '</summary>' +
+        '<div class="vform" style="margin-top:.75rem">' +
+          Object.keys(app.values).map(function (k) {
+            return '<div class="vfield filled">' +
+                   '<span class="vfield-label">' + App.escape(k) + '</span>' +
+                   '<span class="vfield-value">' + App.escape(app.values[k]) + '</span>' +
+                   '<span></span></div>';
+          }).join('') +
+        '</div></details>';
+
+    var dl = el.querySelector('[data-dl]');
+    if (dl) {
+      dl.addEventListener('click', function () {
+        App.toast(hi ? 'प्रमाण पत्र डाउनलोड हो रहा है (प्रोटोटाइप)' : 'Downloading certificate (prototype)');
+        Voice.speak(hi
+          ? 'आपका प्रमाण पत्र तैयार है और डाउनलोड हो रहा है।'
+          : 'Your certificate is ready and downloading.');
+      });
+    }
+
+    return el;
+  }
+
+  function wire() {
+    var q = document.getElementById('q');
+    var timer;
+    q.addEventListener('input', function () {
+      clearTimeout(timer);
+      timer = setTimeout(render, 160);
+    });
+
+    var live = document.getElementById('live');
+    var mic = document.getElementById('btn-mic');
+
+    Voice.on('start', function () { mic.classList.add('listening'); live.textContent = Store.t('listening'); });
+    Voice.on('partial', function (t) { live.textContent = t; });
+    Voice.on('end', function () { mic.classList.remove('listening'); });
+    Voice.on('error', function (e) { live.textContent = e.message; });
+
+    Voice.on('result', function (text) {
+      live.textContent = '“' + text + '”';
+
+      // Spoken application numbers arrive as loose digits — pull them out.
+      var digits = NLU.extract('account', text) || '';
+      var apps = Store.applications();
+      var hit = digits
+        ? apps.filter(function (a) { return a.id.replace(/\D/g, '').indexOf(digits) !== -1; })[0]
+        : null;
+
+      if (!hit) {
+        var m = NLU.matchService(text);
+        if (m) hit = apps.filter(function (a) { return a.serviceSlug === m.service.slug; })[0];
+      }
+
+      if (hit) {
+        q.value = hit.id;
+        render();
+        var stages = Store.stages();
+        var stage = Math.min(Store.stageOf(hit), stages.length);
+        Voice.speak(hi
+          ? 'आपका ' + hit.serviceHi + ' का आवेदन अभी ' + Store.t(stages[stage - 1]) + ' पर है।'
+          : 'Your application for ' + hit.serviceEn + ' is currently at ' + Store.t(stages[stage - 1]) + '.');
+      } else {
+        q.value = text;
+        render();
+        Voice.speak(hi
+          ? 'मुझे इस नंबर का कोई आवेदन नहीं मिला।'
+          : 'I could not find an application with that number.');
+      }
+    });
+
+    mic.addEventListener('click', function () { Voice.warmUp(); Voice.toggle(); });
+
+    App.mountFab(function () { Voice.warmUp(); Voice.toggle(); });
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:ital,wght@0,700;0,800;0,900;1,900&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap');
+
+:root {
+  --bg-black: #000000;
+  --bg-sidebar: #060608;
+  --bg-card: #101014;
+  --bg-card-input: #17171C;
+  --bg-hover: #1C1C24;
+  
+  --border-subtle: #1C1C22;
+  --border-medium: #2A2A34;
+  --border-light: #383846;
+
+  --accent-emerald: #00F59B;
+  --accent-gold: #FFB800;
+  --accent-blue: #2E82FF;
+  --accent-purple: #9333EA;
+  --accent-cyan: #06B6D4;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #9E9EA8;
+  --text-muted: #62626E;
+
+  --font-main: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-black);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #26262E;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3A3A46;
+}
+
+/* Buttons */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.btn-white-cta {
+  background: #FFFFFF;
+  color: #000000;
+  font-weight: 800;
+  font-size: 15px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
+}
+.btn-white-cta:hover {
+  background: #EAEAEA;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 25px rgba(255, 255, 255, 0.25);
+}
+.btn-white-cta:active {
+  transform: translateY(0);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #00F59B 0%, #00C87E 100%);
+  color: #04140D;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-secondary {
+  background: #141418;
+  color: #FFFFFF;
+  border: 1px solid #282830;
+  font-weight: 600;
+  padding: 9px 16px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-secondary:hover {
+  background: #1E1E26;
+  border-color: #3A3A46;
+}
+
+.btn-icon {
+  background: #121216;
+  color: #FFFFFF;
+  border: 1px solid #22222A;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-icon:hover {
+  background: #1C1C24;
+  border-color: #33333E;
+}
+
+/* Badges */
+.badge-pill {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 999px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+.badge-new {
+  background: #FFFFFF;
+  color: #000000;
+}
+.badge-beta {
+  background: #1D2333;
+  color: #60A5FA;
+  border: 1px solid #2A364E;
+}
+.badge-pro {
+  background: #FFFFFF;
+  color: #000000;
+}
+
+/* Watermark Text */
+.watermark-opus {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 210px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.024);
+  letter-spacing: -6px;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+  z-index: 0;
+}
+
+/* Kinetic Captions Keyframes */
+@keyframes wordPop {
+  0% { transform: scale(0.85); opacity: 0.8; }
+  50% { transform: scale(1.22); }
+  100% { transform: scale(1.12); opacity: 1; }
+}
+
+.kinetic-word-active {
+  animation: wordPop 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  display: inline-block;
+  transform-origin: center center;
+}
+
+.score-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 13px;
+}
+.score-high {
+  background: rgba(0, 245, 155, 0.15);
+  color: var(--accent-emerald);
+  border: 1px solid rgba(0, 245, 155, 0.4);
+}
+
+.card-glass {
+  background: #101014;
+  border: 1px solid #1C1C22;
+  border-radius: 16px;
+}

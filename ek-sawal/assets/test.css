@@ -1,0 +1,57 @@
+/* test.css — styling for the self-test page only. Not loaded by index.html. */
+
+.testpage { padding-bottom: 60px; }
+.t-head { padding: 34px 0 22px; }
+.t-head .display {
+  font-family: var(--serif); font-size: clamp(2rem, 7vw, 2.8rem);
+  color: var(--ink); margin: 0 0 12px; letter-spacing: -.02em; line-height: 1.05;
+}
+.t-head .dept { color: var(--muted); max-width: 62ch; margin: 0; font-size: .93rem; }
+.t-head code, .src code {
+  font-family: var(--mono, ui-monospace, Consolas, monospace);
+  background: var(--surface-2); border: 1px solid var(--line);
+  border-radius: 4px; padding: 1px 5px; font-size: .88em; color: var(--ink);
+}
+
+.t-summary {
+  border-radius: var(--r); padding: 18px 22px; margin-bottom: 26px;
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 700;
+  letter-spacing: -.015em;
+}
+.t-summary.good { background: var(--good-soft); color: var(--good); }
+.t-summary.bad  { background: var(--accent-soft); color: var(--accent-ink); }
+
+.t-group {
+  background: var(--surface); border: 1.5px solid var(--line);
+  border-radius: var(--r); padding: 20px 22px; margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+}
+.t-group.has-fail { border-color: var(--accent); }
+.t-group h2 {
+  font-family: var(--serif); font-size: 1.22rem; color: var(--ink);
+  margin: 0 0 6px; font-weight: 700; letter-spacing: -.012em;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+}
+.t-count {
+  font-family: var(--sans); font-size: .72rem; font-weight: 800;
+  background: var(--good-soft); color: var(--good);
+  border-radius: 999px; padding: 4px 10px; letter-spacing: .03em;
+}
+.has-fail .t-count { background: var(--accent-soft); color: var(--accent-ink); }
+.t-note { color: var(--muted); font-size: .84rem; margin: 0 0 14px; max-width: 68ch; line-height: 1.5; }
+
+.t-group ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+.t-group li {
+  display: flex; gap: 11px; align-items: flex-start;
+  font-size: .89rem; line-height: 1.45; color: var(--ink-body);
+  padding: 7px 0; border-bottom: 1px solid var(--line-soft);
+}
+.t-group li:last-child { border-bottom: 0; }
+.t-mark { flex: none; font-weight: 900; width: 16px; }
+.t-group li.p .t-mark { color: var(--good); }
+.t-group li.f { color: var(--accent-ink); font-weight: 600; }
+.t-group li.f .t-mark { color: var(--accent); }
+.t-group li em {
+  font-style: normal; color: var(--muted); font-size: .84em;
+  display: inline-block; margin-left: 4px;
+}

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0A1120" />
+<title>BP Engineer's &amp; Construction — Construction Company in Haldwani</title>
+<meta name="description" content="Licensed engineers, architects and interior designers in Haldwani. Map approval, RCC structure, interiors and handover — one accountable team. Over 100 families have trusted us." />
+
+<meta property="og:title" content="BP Engineer's &amp; Construction — Construction Company in Haldwani" />
+<meta property="og:description" content="From approved drawings to handed-over keys, one accountable team. Over 100 families across Haldwani and Kumaon have trusted us." />
+<meta property="og:type" content="website" />
+
+<link rel="icon" type="image/png" href="./logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/src/style.css" />
+</head>
+<body class="is-loading">
+
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+
+<!-- ══════════════════════════ PRELOADER ══════════════════════════ -->
+<div class="loader" id="loader">
+  <div class="loader__inner">
+    <div class="loader__mark">
+      <img class="loader__logo-img" src="./logo-white.png" alt="" width="766" height="434" />
+      <span class="loader__sub">Haldwani · Uttarakhand</span>
+    </div>
+    <div class="loader__meter"><div class="loader__bar" id="loaderBar"></div></div>
+    <div class="loader__row">
+      <span class="loader__label" id="loaderLabel">Preparing the model</span>
+      <span class="loader__pct" id="loaderPct">00</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════ HEADER ══════════════════════════ -->
+<header class="nav" id="nav">
+  <a class="nav__brand" href="#top" data-cursor="link">
+    <img class="nav__mark" src="./logo.png" alt="" width="766" height="434" />
+    <span class="nav__brandtext">
+      <span class="nav__logo">BP Engineer's &amp; Construction</span>
+      <span class="nav__tag">Haldwani · Uttarakhand</span>
+    </span>
+  </a>
+  <nav class="nav__links">
+    <a href="#anatomy" data-cursor="link">How we build</a>
+    <a href="#practice" data-cursor="link">About</a>
+    <a href="#services" data-cursor="link">Services</a>
+    <a href="#process" data-cursor="link">Process</a>
+  </nav>
+  <a href="https://wa.me/916395844412" target="_blank" rel="noopener" class="btn btn--sm" data-magnetic data-cursor="link">
+    <span>WhatsApp us</span>
+    <svg viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5.5M13 3v7.5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+  <button class="nav__burger" id="burger" aria-label="Menu"><span></span><span></span></button>
+</header>
+
+<div class="menu" id="menu">
+  <a href="#anatomy">How we build</a>
+  <a href="#practice">About</a>
+  <a href="#services">Services</a>
+  <a href="#process">Process</a>
+  <a href="tel:+916395844412">+91 63958 44412</a>
+</div>
+
+<main id="top">
+
+<!-- ══════════════════════════ THEATRE : STICKY FRAME SEQUENCE ══════════════════════════ -->
+<section class="theatre" id="anatomy">
+  <div class="stage">
+    <canvas class="stage__canvas" id="stageCanvas"></canvas>
+    <div class="stage__scrim" aria-hidden="true"></div>
+    <div class="stage__lead" id="stageLead" aria-hidden="true"></div>
+    <div class="stage__vignette" aria-hidden="true"></div>
+    <div class="stage__rule stage__rule--l" aria-hidden="true"></div>
+    <div class="stage__rule stage__rule--r" aria-hidden="true"></div>
+
+    <div class="hero" id="hero">
+      <div class="hero__eyebrow"><span class="dot"></span>Haldwani · Licensed Engineers &amp; Architects</div>
+      <h1 class="hero__title">
+        <span class="line"><span class="w">Building</span> <span class="w">a</span> <span class="w">home,</span></span>
+        <span class="line"><span class="w">made</span> <span class="w"><em>simple.</em></span></span>
+      </h1>
+      <p class="hero__sub">From map approval to the final key — engineers, architects and interior designers in one team. Over 100 families across Haldwani and Kumaon have trusted us with their home.</p>
+      <div class="hero__actions">
+        <a href="https://wa.me/916395844412" target="_blank" rel="noopener" class="btn btn--solid" data-magnetic data-cursor="link"><span>Get a free estimate</span></a>
+        <a href="#services" class="btn btn--ghost" data-magnetic data-cursor="link"><span>Our services</span></a>
+      </div>
+      <div class="hero__scroll"><span class="hero__scrollLine"></span>Scroll — see how a home comes together</div>
+    </div>
+
+    <!-- Spec cards removed: nothing overlays the sequence now. The card
+         component still lives in the stylesheet if it is ever wanted back. -->
+
+    <div class="beats">
+      <div class="beat" data-in="0.955" data-out="1.03">
+        <h2 class="beat__head">And then we <em>bring it together.</em></h2>
+        <p class="beat__text">One team. One contract. From the first drawing<br />to the final key, the responsibility is ours.</p>
+      </div>
+    </div>
+
+    <div class="hud" id="hud">
+      <div class="hud__top">
+        <span class="hud__phase" id="hudPhase">Ready to build</span>
+        <span class="hud__pct"><span id="hudPct">0</span><i>%</i></span>
+      </div>
+      <div class="hud__track">
+        <div class="hud__fill" id="hudFill"></div>
+        <span class="hud__tick" style="left:7.5%"></span>
+        <span class="hud__tick" style="left:25.1%"></span>
+        <span class="hud__tick" style="left:48.4%"></span>
+        <span class="hud__tick" style="left:72%"></span>
+        <span class="hud__tick" style="left:94%"></span>
+      </div>
+      <div class="hud__legend">
+        <span style="left:7.5%">Drawings</span>
+        <span style="left:25.1%">Structure</span>
+        <span style="left:48.4%">Full detail</span>
+        <span style="left:72%">Interiors</span>
+        <span style="left:94%">Handover</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ MARQUEE ══════════════════════════ -->
+<section class="marquee" aria-hidden="true">
+  <div class="marquee__track">
+    <span>Licensed Engineers</span><i>◆</i><span>Municipal Map Approval</span><i>◆</i><span>Architects</span><i>◆</i><span>Interior Designers</span><i>◆</i><span>100+ Families</span><i>◆</i><span>Haldwani · Kumaon</span><i>◆</i>
+    <span>Licensed Engineers</span><i>◆</i><span>Municipal Map Approval</span><i>◆</i><span>Architects</span><i>◆</i><span>Interior Designers</span><i>◆</i><span>100+ Families</span><i>◆</i><span>Haldwani · Kumaon</span><i>◆</i>
+  </div>
+</section>
+
+<!-- ══════════════════════════ ABOUT ══════════════════════════ -->
+<section class="practice" id="practice">
+  <div class="shell">
+    <div class="sechead" data-reveal><span class="sechead__idx">Why us</span></div>
+    <h2 class="statement" data-split>No middlemen.<br /><em>No surprises.</em></h2>
+    <p class="lede" data-reveal>Engineers, architects and interior designers in one team. Municipal drawings to the final key, on a single contract.</p>
+    <!-- The numbers live here rather than in their own pane: four figures
+         alone on a full screen read as an empty band. -->
+    <div class="stats__grid stats__grid--light">
+      <div class="stat" data-reveal><b data-count="100" data-suffix="+">0</b><span>Families served</span></div>
+      <div class="stat" data-reveal><b data-count="3" data-suffix="">0</b><span>Disciplines in-house</span></div>
+      <div class="stat" data-reveal><b data-count="333" data-suffix="">0</b><span>Site updates shared</span></div>
+      <div class="stat" data-reveal><b class="stat--word">Kumaon</b><span>Region covered</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ SERVICES ══════════════════════════ -->
+<section class="caps" id="services">
+  <div class="shell">
+    <div class="sechead" data-reveal><span class="sechead__idx">Services</span></div>
+    <div class="secrow">
+      <h2 class="h2" data-split>Everything under one roof.</h2>
+      <p class="secrow__note" data-reveal>One team. One contract. One number to call.</p>
+    </div>
+    <div class="caps__grid">
+      <article class="cap" data-reveal data-cursor="hover"><span class="cap__n">01</span><h3>Drawings &amp; map approval</h3><p>Nagar Nigam naksha, start to sanction.</p></article>
+      <article class="cap" data-reveal data-cursor="hover"><span class="cap__n">02</span><h3>Architecture &amp; 3D design</h3><p>See your home before we pour anything.</p></article>
+      <article class="cap" data-reveal data-cursor="hover"><span class="cap__n">03</span><h3>RCC &amp; structure</h3><p>Zone IV design. ISI steel. Graded concrete.</p></article>
+      <article class="cap" data-reveal data-cursor="hover"><span class="cap__n">04</span><h3>Interior design</h3><p>Kitchen, ceiling, wardrobes, tile — in-house.</p></article>
+      <article class="cap" data-reveal data-cursor="hover"><span class="cap__n">05</span><h3>Boundary &amp; site work</h3><p>Walls, gates, driveway. Same crew.</p></article>
+      <article class="cap" data-reveal data-cursor="hover"><span class="cap__n">06</span><h3>Renovation</h3><p>Extend or rebuild — structure checked first.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ VISUALISATION ══════════════════════════ -->
+<section class="works" id="works">
+  <div class="shell">
+    <div class="sechead" data-reveal><span class="sechead__idx">Before we build</span></div>
+    <div class="secrow">
+      <h2 class="h2" data-split>See it before we build it.</h2>
+      <p class="secrow__note" data-reveal>Every home is modelled and costed before a single bag of cement is opened.</p>
+    </div>
+  </div>
+
+  <div class="works__grid">
+    <a class="work" href="https://wa.me/916395844412" target="_blank" rel="noopener" data-reveal data-cursor="view">
+      <div class="work__media"><img src="./construction/frame_001.jpg" alt="3D elevation view of a modern two-storey residence" loading="lazy" style="--pos:50% 46%" /></div>
+      <div class="work__meta"><span class="work__loc">3D Elevation</span><h3>Front elevation</h3></div>
+    </a>
+    <a class="work" href="https://wa.me/916395844412" target="_blank" rel="noopener" data-reveal data-cursor="view">
+      <div class="work__media"><img src="./construction/frame_150.jpg" alt="Roof slab assembly in the structural model" loading="lazy" style="--pos:50% 12%; --z:1.10" /></div>
+      <div class="work__meta"><span class="work__loc">Structure</span><h3>Slab &amp; roof</h3></div>
+    </a>
+    <a class="work" href="https://wa.me/916395844412" target="_blank" rel="noopener" data-reveal data-cursor="view">
+      <div class="work__media"><img src="./construction/frame_201.jpg" alt="Full component breakdown of the house model" loading="lazy" style="--pos:82% 58%; --z:1.44" /></div>
+      <div class="work__meta"><span class="work__loc">Component view</span><h3>Every part, costed</h3></div>
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════════════ PROCESS ══════════════════════════ -->
+<section class="process" id="process">
+  <div class="shell">
+    <div class="sechead" data-reveal><span class="sechead__idx">Process</span></div>
+    <div class="secrow">
+      <h2 class="h2" data-split>Four steps. No surprises.</h2>
+      <p class="secrow__note" data-reveal>You know the cost before we start, and see the site every week.</p>
+    </div>
+    <ol class="steps">
+      <li class="step" data-reveal><span class="step__n">01</span><h3>Site visit &amp; estimate</h3><p>Soil checked, cost written down.</p><span class="step__t">Free</span></li>
+      <li class="step" data-reveal><span class="step__n">02</span><h3>Drawings &amp; approval</h3><p>3D you approve. Sanction we chase.</p><span class="step__t">Step 2</span></li>
+      <li class="step" data-reveal><span class="step__n">03</span><h3>Construction</h3><p>Our engineers on site. Photos every week.</p><span class="step__t">Step 3</span></li>
+      <li class="step" data-reveal><span class="step__n">04</span><h3>Interiors &amp; handover</h3><p>Snag list at zero, then keys.</p><span class="step__t">Step 4</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ══════════════════════════ REVIEWS ══════════════════════════ -->
+<!--
+  ⚠  PLACEHOLDER REVIEWS — these are NOT real BP clients.
+     Replace every .rev block with genuine reviews (Google Business or the
+     client-review reels on Instagram) before this site goes live. Keep the
+     structure; swap the quote, name and location.
+-->
+<section class="quote" id="reviews">
+  <div class="revscroll" id="revScroll">
+    <div class="revpin">
+      <div class="shell">
+        <div class="sechead" data-reveal><span class="sechead__idx">Reviews</span></div>
+        <div class="secrow">
+          <h2 class="h2" data-split>What families say.</h2>
+          <p class="secrow__note" data-reveal>More than 100 families have trusted us with their home, every one built under the supervision of our own engineers. Here is what a few of them said.</p>
+        </div>
+      </div>
+
+      <div class="shell">
+        <div class="revshow" id="revShow" tabindex="0" aria-roledescription="carousel" aria-label="Client reviews">
+          <div class="revshow__stage">
+            <article class="rev">
+              <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+              <p class="rev__text">They handled the map approval, the structure and the interiors, so we only ever had one team to call. The estimate they gave at the start is what we ended up paying.</p>
+              <div class="rev__by"><b>Placeholder name</b><span>Rampur Road, Haldwani</span></div>
+            </article>
+            <article class="rev">
+              <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+              <p class="rev__text">Their engineer was on site at every pour. We got photos on WhatsApp each week, so even living out of town we always knew exactly where the work had reached.</p>
+              <div class="rev__by"><b>Placeholder name</b><span>Kathgodam</span></div>
+            </article>
+            <article class="rev">
+              <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+              <p class="rev__text">The 3D elevation let us change the front and the balcony before anything was built. That one step saved us a lot of money and arguments later on.</p>
+              <div class="rev__by"><b>Placeholder name</b><span>Bel Baba, Haldwani</span></div>
+            </article>
+            <article class="rev">
+              <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+              <p class="rev__text">Modular kitchen, false ceiling and tile work were all done by the same team that built the structure. Nothing had to be redone and the finish is clean.</p>
+              <div class="rev__by"><b>Placeholder name</b><span>Lalkuan</span></div>
+            </article>
+            <article class="rev">
+              <div class="rev__stars" aria-label="5 out of 5">★★★★★</div>
+              <p class="rev__text">We had them extend an old house rather than build new. They checked the existing structure first and told us honestly what could and could not carry another floor.</p>
+              <div class="rev__by"><b>Placeholder name</b><span>Kaladhungi Road</span></div>
+            </article>
+          </div>
+
+          <div class="revshow__prog" aria-hidden="true"><i id="revProg"></i></div>
+
+          <div class="revshow__bar">
+            <div class="revshow__dots" id="revDots" role="tablist"></div>
+            <div class="revshow__ctrl">
+              <span class="revshow__count"><b id="revIdx">01</b><i>/ 05</i></span>
+              <button class="revshow__nav" data-rev-prev aria-label="Previous review">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M12.5 4L6.5 10l6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="revshow__nav" data-rev-next aria-label="Next review">
+                <svg viewBox="0 0 20 20" fill="none"><path d="M7.5 4l6 6-6 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ CONTACT ══════════════════════════ -->
+<section class="contact" id="contact">
+  <div class="shell contact__inner">
+    <div class="contact__left">
+      <div class="sechead" data-reveal><span class="sechead__idx">Get in touch</span></div>
+      <h2 class="contact__h" data-split>Tell us about your <em>plot.</em></h2>
+      <p class="contact__p" data-reveal>Free estimate and an outline plan, in two working days.</p>
+      <div class="contact__meta" data-reveal>
+        <div><span>Phone</span><b><a href="tel:+916395844412">+91 63958 44412</a></b></div>
+        <div><span>WhatsApp</span><b><a href="https://wa.me/916395844412" target="_blank" rel="noopener">Message us directly</a></b></div>
+        <div><span>Instagram</span><b><a href="https://www.instagram.com/bpengineersandconstruction/" target="_blank" rel="noopener">@bpengineersandconstruction</a></b></div>
+      </div>
+      <!-- OpenStreetMap, not a Google embed: google.com/maps refuses to be
+           framed (X-Frame-Options) and rendered blank. OSM allows framing and
+           needs no API key; the link still opens Google for directions.
+           Recentre by editing bbox + marker to the exact street address. -->
+      <figure class="mapcard" data-reveal>
+        <iframe
+          src="https://www.openstreetmap.org/export/embed.html?bbox=79.42%2C29.14%2C79.62%2C29.30&amp;layer=mapnik&amp;marker=29.2183%2C79.5130"
+          title="BP Engineer's &amp; Construction — service area, Haldwani"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <figcaption>
+          <span><span class="mapcard__dot"></span>Haldwani &amp; the Kumaon region</span>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Haldwani,+Uttarakhand" target="_blank" rel="noopener">Open in Maps ↗</a>
+        </figcaption>
+      </figure>
+    </div>
+    <form class="form" data-reveal novalidate>
+      <div class="field"><label for="f-name">Name</label><input id="f-name" type="text" placeholder="Your name" /></div>
+      <div class="field"><label for="f-phone">Phone</label><input id="f-phone" type="tel" placeholder="10-digit number" /></div>
+      <div class="field"><label for="f-loc">Plot location</label><input id="f-loc" type="text" placeholder="Area, Haldwani" /></div>
+      <div class="field"><label for="f-scope">Scope</label>
+        <select id="f-scope">
+          <option>New home — drawings to keys</option>
+          <option>Drawings / map approval only</option>
+          <option>Interior design &amp; fit-out</option>
+          <option>Renovation or extension</option>
+          <option>Boundary wall / site work</option>
+        </select>
+      </div>
+      <div class="field field--full"><label for="f-msg">Details</label><textarea id="f-msg" rows="2" placeholder="Plot size, floors, budget…"></textarea></div>
+      <button type="submit" class="btn btn--solid btn--full" data-magnetic data-cursor="link"><span>Send on WhatsApp</span></button>
+      <p class="form__note">Opens WhatsApp — no backend.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ══════════════════════════ FOOTER ══════════════════════════ -->
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__cols">
+      <div><span class="foot__lbl">Company</span><a href="#practice">About</a><a href="#services">Services</a><a href="#process">Process</a></div>
+      <div><span class="foot__lbl">Services</span><a href="#services">Map approval</a><a href="#services">RCC structure</a><a href="#services">Interiors</a></div>
+      <div><span class="foot__lbl">Connect</span><a href="https://www.instagram.com/bpengineersandconstruction/" target="_blank" rel="noopener">Instagram</a><a href="https://wa.me/916395844412" target="_blank" rel="noopener">WhatsApp</a><a href="tel:+916395844412">+91 63958 44412</a></div>
+      <div><span class="foot__lbl">Area</span><a href="#contact">Haldwani, Uttarakhand</a><a href="#contact">Kumaon region</a></div>
+    </div>
+    <div class="foot__mark">BP ENGINEER'S</div>
+    <div class="foot__base"><span>© 2026 BP Engineer's &amp; Construction</span><span>Built in Haldwani</span></div>
+  </div>
+</footer>
+
+</main>
+
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AEX-01 MK-VII — Suit Assembly &amp; Disassembly System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader__box">
+      <div class="loader__mark">AEX // MK-VII</div>
+      <div class="loader__sub">INITIALIZING SUIT COMPONENTS...</div>
+      <div class="loader__track"><div class="loader__bar" id="loaderBar"></div></div>
+      <div class="loader__pct" id="loaderPct">0%</div>
+    </div>
+  </div>
+
+  <!-- Header Bar -->
+  <header class="hdr">
+    <div class="hdr__brand">
+      <span class="hdr__symbol">⚡</span>
+      <div>
+        <h1 class="hdr__title">AEX-01 MK-VII</h1>
+        <span class="hdr__sub">AUTONOMOUS SUIT CAD &amp; ASSEMBLY ENGINE</span>
+      </div>
+    </div>
+    <div class="hdr__status">
+      <span class="hdr__pulse"></span>
+      <span id="systemModeLabel">MODE: SCROLL CONTROL</span>
+    </div>
+  </header>
+
+  <!-- Main Canvas Stage (Sticky/Fixed) -->
+  <div class="stage">
+    <canvas id="stageCanvas" class="stage__canvas"></canvas>
+    
+    <!-- Sci-Fi HUD Overlay -->
+    <div class="hud">
+      <!-- Left Telemetry Card -->
+      <div class="hud__card hud__card--tl">
+        <span class="hud__label">FRAME TELEMETRY</span>
+        <div class="hud__val" id="hudFrameIdx">001 / 240</div>
+        <div class="hud__bar"><div class="hud__fill" id="hudFrameBar"></div></div>
+      </div>
+
+      <!-- Right State Telemetry -->
+      <div class="hud__card hud__card--tr">
+        <span class="hud__label">ASSEMBLY STATUS</span>
+        <div class="hud__val" id="hudStateLabel">100% ASSEMBLED</div>
+        <div class="hud__subval" id="hudSubState">FRAME 001 — SUIT LOCK</div>
+      </div>
+
+      <!-- Bottom Progress Track -->
+      <div class="hud__bottom">
+        <div class="hud__timeline">
+          <span class="hud__tick" style="left: 0%">ASSEMBLED</span>
+          <span class="hud__tick" style="left: 33%">FRAME EXPLODE</span>
+          <span class="hud__tick" style="left: 66%">MEP &amp; ENVELOPE</span>
+          <span class="hud__tick" style="left: 100%">DISMANTLED</span>
+          <div class="hud__track-line">
+            <div class="hud__track-fill" id="hudTrackFill"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Height Container -->
+  <div class="scroll-space" id="scrollSpace"></div>
+
+  <!-- Streamer Style Camera PIP Overlay Box -->
+  <div class="cam-widget" id="camWidget">
+    <div class="cam-widget__header">
+      <span class="cam-widget__pulse-dot"></span>
+      <span class="cam-widget__title" id="camTitle">LIVE CAMERA FEED</span>
+      <span class="cam-widget__kbd">SPACE</span>
+    </div>
+
+    <div class="cam-widget__viewport">
+      <video id="cameraFeed" class="cam-widget__video" autoplay playsinline muted></video>
+      <canvas id="cameraOverlay" class="cam-widget__canvas" width="220" height="155"></canvas>
+      <div class="cam-widget__overlay-grid"></div>
+    </div>
+
+    <div class="cam-widget__bar">
+      <span class="cam-widget__msg" id="camMsg">Press [SPACE] or Click to Start Camera</span>
+      <button id="cameraToggleBtn" class="cam-widget__btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <span id="camBtnLabel">Track</span>
+      </button>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "suit-assembly-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Futuristic Suit Assembly & Disassembly interactive web experience with AI camera hand-tracking.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.1.0"
+  },
+  "dependencies": {
+    "@mediapipe/camera_utils": "latest",
+    "@mediapipe/hands": "latest"
+  }
+}

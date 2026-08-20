@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ek Sawal — self test</title>
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/test.css">
+</head>
+<body class="testpage">
+
+<div class="wrap">
+  <header class="t-head">
+    <p class="eyebrow">Verification</p>
+    <h1 class="display">Ek Sawal self-test</h1>
+    <p class="dept">Runs in your browser against the shipped files. Nothing is mocked —
+      this is the same <code>kb.js</code>, <code>regional.js</code> and <code>match.js</code>
+      the citizen-facing page loads. Every claim in README.md is checked here.</p>
+  </header>
+
+  <div class="t-summary" id="summary">running…</div>
+  <div id="results"></div>
+
+  <p class="src">
+    Open the browser console for stack traces on any failure.
+    Add a case in <code>assets/test.js</code> — one line per assertion.
+  </p>
+</div>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/kb.js"></script>
+<script src="assets/regional.js"></script>
+<script src="assets/match.js"></script>
+<script src="assets/test.js"></script>
+</body>
+</html>

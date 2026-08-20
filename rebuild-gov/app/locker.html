@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>मेरे दस्तावेज़ | My Documents · DigiLocker</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div id="site-govstrip"></div>
+<div id="site-masthead"></div>
+<div id="site-navbar"></div>
+<nav id="site-breadcrumb"></nav>
+
+<div class="layout">
+  <aside class="sidebar" id="site-sidebar"></aside>
+
+  <main id="main">
+    <div class="page-head">
+      <h1 id="page-title"></h1>
+      <p id="page-sub"></p>
+    </div>
+
+    <section class="card" id="conn-card"></section>
+
+    <section class="section" id="docs-section" hidden>
+      <div class="section-head">
+        <h2 id="docs-title"></h2>
+        <span class="sub" id="docs-count"></span>
+      </div>
+      <div class="grid grid-2" id="docs"></div>
+    </section>
+
+    <section class="section" id="unlock" hidden></section>
+
+    <section class="section" id="consent"></section>
+  </main>
+</div>
+
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/icons.js"></script>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/nlu.js"></script>
+<script src="../assets/js/voice-engine.js"></script>
+<script src="../assets/js/digilocker.js"></script>
+<script src="../assets/js/app.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var hi;
+
+  var DOC_ICONS = {
+    AADHAAR: 'idcard', RATION: 'family', VOTER: 'ballot', LAND: 'wheat',
+    MARKSHEET: 'graduation', PAN: 'idcard', DEATH: 'document', APUNI_SARKAR: 'certificate'
+  };
+
+  App.init({ base: '../', page: 'locker' }).then(function () {
+    hi = Store.lang === 'hi';
+    Voice.init({ provider: 'webspeech', lang: Store.lang });
+
+    document.getElementById('page-title').textContent = Store.t('navLocker');
+    document.getElementById('page-sub').textContent = hi
+      ? 'आपके सरकारी दस्तावेज़ एक जगह। जब आप कोई आवेदन करेंगे, ये अपने आप जुड़ जाएंगे — आपको कुछ अपलोड नहीं करना पड़ेगा।'
+      : 'Your government documents in one place. When you apply for a service these attach themselves — you upload nothing.';
+    document.getElementById('docs-title').textContent = hi ? 'जारी किए गए दस्तावेज़' : 'Issued documents';
+
+    renderConsent();
+    renderConnection();
+    App.mountFab(function () { Voice.warmUp(); Voice.toggle(); });
+  });
+
+  /* ------------------------------------------------------------ connection */
+
+  function renderConnection() {
+    var el = document.getElementById('conn-card');
+
+    if (!DigiLocker.isConnected()) {
+      el.innerHTML =
+        '<div style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap">' +
+          '<span class="tile-icon" style="width:52px;height:52px">' + App.icon('folder', 26) + '</span>' +
+          '<div style="flex:1;min-width:240px">' +
+            '<h2 style="margin:0 0 .25rem">' + Store.t('connectLocker') + '</h2>' +
+            '<p class="muted" style="margin:0">' + (hi
+              ? 'एक बार जोड़ दीजिए। फिर हर आवेदन में आपके आधार, राशन कार्ड, खतौनी और अंकपत्र अपने आप लग जाएंगे।'
+              : 'Connect once. After that your Aadhaar, ration card, land record and marksheets attach to every application automatically.') +
+            '</p>' +
+          '</div>' +
+          '<button class="btn btn-lg" id="btn-connect">' + Store.t('connectLocker') +
+            App.icon('arrowRight', 16) + '</button>' +
+        '</div>';
+
+      document.getElementById('btn-connect').addEventListener('click', connect);
+      document.getElementById('docs-section').hidden = true;
+      document.getElementById('unlock').hidden = true;
+      return;
+    }
+
+    var p = DigiLocker.getProfile() || {};
+    el.innerHTML =
+      '<div style="display:flex;gap:1.25rem;align-items:center;flex-wrap:wrap">' +
+        '<span class="tile-icon" style="width:52px;height:52px;background:var(--green-600)">' +
+          App.icon('check', 26) + '</span>' +
+        '<div style="flex:1;min-width:240px">' +
+          '<h2 style="margin:0 0 .25rem;color:var(--green-700)">' + Store.t('lockerOn') + '</h2>' +
+          '<p class="muted" style="margin:0">' +
+            App.escape(hi ? (p.nameHi || p.name) : p.name) +
+            ' · <span class="num">' + App.escape(p.aadhaarMasked || '') + '</span></p>' +
+        '</div>' +
+        '<button class="btn btn-ghost" id="btn-disconnect">' + (hi ? 'हटाएँ' : 'Disconnect') + '</button>' +
+      '</div>';
+
+    document.getElementById('btn-disconnect').addEventListener('click', function () {
+      DigiLocker.disconnect();
+      renderConnection();
+      App.toast(hi ? 'डिजिलॉकर हटा दिया गया' : 'DigiLocker disconnected');
+    });
+
+    loadDocs();
+    renderUnlock();
+  }
+
+  function connect() {
+    var btn = document.getElementById('btn-connect');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> ' + (hi ? 'जोड़ रहे हैं…' : 'Connecting…');
+
+    Voice.speak(hi
+      ? 'डिजिलॉकर से जुड़ रहे हैं। आपकी अनुमति से ही दस्तावेज़ लिए जाएंगे।'
+      : 'Connecting to DigiLocker. Documents are fetched only with your consent.');
+
+    DigiLocker.connect().then(function () {
+      renderConnection();
+      App.toast(hi ? 'डिजिलॉकर जुड़ गया' : 'DigiLocker connected');
+      Voice.speak(hi
+        ? 'डिजिलॉकर जुड़ गया है। आपके दस्तावेज़ नीचे दिख रहे हैं।'
+        : 'DigiLocker is connected. Your documents are shown below.');
+    });
+  }
+
+  /* ------------------------------------------------------------- documents */
+
+  function loadDocs() {
+    var section = document.getElementById('docs-section');
+    section.hidden = false;
+
+    var wrap = document.getElementById('docs');
+    wrap.innerHTML = '<div class="card"><span class="spinner"></span> ' +
+                     (hi ? 'दस्तावेज़ ला रहे हैं…' : 'Loading documents…') + '</div>';
+
+    DigiLocker.listDocuments().then(function (docs) {
+      document.getElementById('docs-count').textContent =
+        docs.length + ' ' + (hi ? 'दस्तावेज़' : 'documents');
+      wrap.innerHTML = '';
+
+      docs.forEach(function (d) {
+        var card = document.createElement('div');
+        card.className = 'card';
+        card.style.cssText = 'display:flex;gap:1rem;align-items:flex-start';
+        card.innerHTML =
+          '<span class="svc-icon" style="width:42px;height:42px;flex:none;' +
+            'background:var(--green-100);color:var(--green-700)">' +
+            App.icon(DOC_ICONS[d.type] || 'document', 22) + '</span>' +
+          '<div style="flex:1;min-width:0">' +
+            '<strong>' + App.escape(hi ? d.nameHi : d.name) + '</strong>' +
+            '<div class="small muted">' + App.escape(hi ? d.issuerHi : d.issuer) + '</div>' +
+            '<div class="tiny muted" style="margin-top:.3rem">' +
+              '<span class="num">' + App.escape(d.docId) + '</span> · ' +
+              (hi ? 'जारी' : 'issued') + ' ' + App.formatDate(d.issuedOn) + '</div>' +
+            '<div style="margin-top:.6rem;display:flex;gap:.35rem;flex-wrap:wrap">' +
+              '<span class="pill pill-green">' + App.icon('check', 12) +
+                (hi ? 'सत्यापित' : 'Verified') + '</span>' +
+              '<span class="pill">' + (hi ? 'सरकार द्वारा जारी' : 'Government issued') + '</span>' +
+            '</div>' +
+          '</div>';
+        wrap.appendChild(card);
+      });
+    });
+  }
+
+  /* --------------------------------------------------------- what it unlocks */
+
+  function renderUnlock() {
+    var el = document.getElementById('unlock');
+    el.hidden = false;
+
+    var rows = Store.voiceReadyServices().map(function (svc) {
+      return {
+        svc: svc,
+        fromLocker: (svc.docs || []).filter(function (d) { return d.digilocker; }).length,
+        manual: DigiLocker.manualDocs(svc).length
+      };
+    }).filter(function (r) { return r.fromLocker > 0; });
+
+    el.innerHTML =
+      '<div class="section-head">' +
+        '<h2>' + (hi ? 'इससे क्या आसान हुआ' : 'What this makes easier') + '</h2>' +
+        '<span class="sub">' + rows.length + ' ' + (hi ? 'सेवाएं' : 'services') + '</span>' +
+      '</div>' +
+      '<div class="card">' +
+        '<p class="muted small" style="margin-bottom:1rem">' + (hi
+          ? 'इन सेवाओं में अब आपको ज़्यादातर कागज़ लाने की ज़रूरत नहीं।'
+          : 'For these services you no longer need to bring most papers.') + '</p>' +
+        '<div class="vform">' +
+          rows.map(function (r) {
+            return '<div class="vfield filled" style="grid-template-columns:1fr auto auto">' +
+              '<span class="vfield-label" style="display:flex;align-items:center;gap:.5rem">' +
+                Icons.forService(r.svc, 16) + App.escape(hi ? r.svc.hi : r.svc.en) + '</span>' +
+              '<span class="pill pill-green">' + App.icon('folder', 12) + r.fromLocker + ' ' +
+                (hi ? 'अपने आप' : 'auto') + '</span>' +
+              (r.manual
+                ? '<span class="pill pill-amber">' + App.icon('upload', 12) + r.manual + '</span>'
+                : '<span class="pill pill-green">' + App.icon('check', 12) +
+                  (hi ? 'कुछ नहीं' : 'nothing') + '</span>') +
+            '</div>';
+          }).join('') +
+        '</div>' +
+        '<p style="margin:1.25rem 0 0"><a class="btn" href="apply.html">' +
+          App.icon('mic', 17) + Store.t('applyNow') + '</a></p>' +
+      '</div>';
+  }
+
+  /* ----------------------------------------------------------- consent block */
+
+  function renderConsent() {
+    var lines = hi
+      ? ['हर दस्तावेज़ आपकी अनुमति से ही लिया जाता है — डिजिलॉकर की अपनी स्क्रीन पर।',
+         'पोर्टल आपका आधार नंबर पूरा नहीं रखता, सिर्फ़ आख़िरी चार अंक दिखते हैं।',
+         'कौन सा विभाग, कब, कौन सा दस्तावेज़ देखेगा — इसका पूरा रिकॉर्ड रहता है।',
+         'आप किसी भी समय अनुमति वापस ले सकते हैं। ऊपर “हटाएँ” दबाइए।',
+         'आपकी आवाज़ की रिकॉर्डिंग जमा नहीं की जाती — बोलने के तुरंत बाद हटा दी जाती है।']
+      : ['Every document is fetched only with your approval, on DigiLocker’s own consent screen.',
+         'The portal never stores your full Aadhaar number — only the last four digits are shown.',
+         'A full audit record is kept of which department saw which document, and when.',
+         'You can withdraw consent at any time. Press “Disconnect” above.',
+         'Your voice recordings are not retained — they are discarded immediately after transcription.'];
+
+    document.getElementById('consent').innerHTML =
+      '<div class="section-head"><h2>' +
+        (hi ? 'आपकी सहमति, आपका नियंत्रण' : 'Your consent, your control') + '</h2></div>' +
+      '<div class="card">' +
+        '<div style="display:flex;gap:1rem;align-items:flex-start">' +
+          '<span class="tile-icon" style="width:40px;height:40px;flex:none">' +
+            App.icon('lock', 20) + '</span>' +
+          '<ul class="small muted" style="margin:0;padding-left:1.1rem;line-height:1.9">' +
+            lines.map(function (li) { return '<li>' + li + '</li>'; }).join('') +
+          '</ul>' +
+        '</div>' +
+        '<p class="tiny muted" style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)">' +
+          (hi
+            ? 'प्रोटोटाइप नोट: यह डेमो नकली दस्तावेज़ दिखाता है। असली एकीकरण के लिए राज्य को DigiLocker Requester के रूप में पंजीकरण कराना होगा।'
+            : 'Prototype note: this demo shows mock documents. Real integration requires the state to register as a DigiLocker Requester.') +
+        '</p>' +
+      '</div>';
+  }
+})();
+</script>
+</body>
+</html>

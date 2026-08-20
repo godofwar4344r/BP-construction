@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="hi" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>एक सवाल · Ek Sawal — उत्तराखंड नागरिक सेवा</title>
+<meta name="description" content="अपने शब्दों में, अपनी भाषा में पूछिए। कौन सा कागज़ चाहिए, कितना खर्च, कितने दिन और कहाँ जाना है। Ask in Hindi, English, Garhwali or Kumaoni — get the documents, cost, days and place for any Uttarakhand government service.">
+<meta name="theme-color" content="#F6F3EF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A1728" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/flow.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23143A2B'/><path d='M5 23 L12 11 L16 17 L21 8 L27 23 Z' fill='%23F6F3EF'/></svg>">
+</head>
+<body>
+
+<a class="skip" href="#composer">सीधे सवाल लिखिए · Skip to the question box</a>
+
+<div class="app">
+
+  <!-- ─────────────────────────────────────────────── top bar -->
+  <header class="bar">
+    <div class="bar-in">
+      <span class="logo">
+        <span class="logo-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M4 29 L13 13 L19 21 L26 9 L36 29 Z" fill="currentColor"/>
+            <path d="M5 33 q7 -4 14 0 t14 0" stroke="var(--accent)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="logo-txt">
+          <b id="brand1">एक सवाल</b>
+          <i id="brand2">Ek Sawal</i>
+        </span>
+      </span>
+
+      <span class="bar-tools">
+        <button type="button" class="chip" id="langbtn" aria-haspopup="dialog">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"/>
+          </svg>
+          <span id="langcode">हिन्दी</span>
+        </button>
+        <button type="button" class="chip" id="appsbtn" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 3h7l4 4v13a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M15 3v5h5"/>
+          </svg>
+          <span id="appscount">0</span>
+        </button>
+        <button type="button" class="chip chip-sq" id="theme" aria-label="Dark mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" id="theme-ico" aria-hidden="true">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+          </svg>
+        </button>
+      </span>
+    </div>
+    <p class="proto"><b id="proto1">प्रस्तावित प्रोटोटाइप</b> · <span id="proto2">यह आधिकारिक सरकारी वेबसाइट नहीं है</span></p>
+  </header>
+
+  <p class="band off" id="offline" role="status" hidden></p>
+
+  <!-- ─────────────────────────────────────────────── thread -->
+  <main class="thread" id="thread" tabindex="-1">
+
+    <!-- empty state, replaced by the conversation on first ask -->
+    <section class="hello" id="hello">
+      <div class="hello-scene" aria-hidden="true">
+        <svg viewBox="0 0 900 300" fill="none">
+          <circle class="orb" cx="712" cy="74" r="30"/>
+          <path class="ridge" d="M-20 214 L74 140 L128 174 L196 108 L248 148 L320 78 L376 132 L440 56 L506 120 L566 82 L628 142 L698 96 L764 156 L834 112 L920 168"/>
+          <path class="ridge" d="M440 56 L472 96 L506 76 L440 56 Z"/>
+          <path class="ridge2" d="M-20 250 L64 206 L142 236 L222 186 L298 224 L376 180 L458 218 L534 176 L614 214 L692 172 L774 210 L852 172 L920 206"/>
+          <path class="pine" d="M838 218 L845 192 L841 192 L848 168 L844 168 L851 144 L858 168 L854 168 L861 192 L857 192 L864 218 Z"/>
+          <path class="bird" d="M646 62 q6 -6 12 0"/>
+          <path class="bird" d="M666 82 q5 -5 10 0"/>
+        </svg>
+      </div>
+
+      <div class="hello-in">
+        <p class="kicker rise d1" id="eyebrow">नागरिक सेवा</p>
+        <h1 class="hello-h1 rise d2" id="h1">आपको क्या चाहिए?</h1>
+        <p class="hello-sub rise d3" id="sub"></p>
+      </div>
+
+      <div class="starters rise d5">
+        <p class="starters-lbl" id="sitsub">सबसे ज़्यादा पूछी जाने वाली बातें</p>
+        <div class="starter-grid" id="sits"></div>
+      </div>
+    </section>
+
+    <div class="msgs" id="msgs"></div>
+    <div class="thread-pad"></div>
+  </main>
+
+  <!-- ─────────────────────────────────────────────── composer -->
+  <div class="composer" id="composer">
+    <div class="composer-in">
+      <p class="micstate" id="micstate" role="status" aria-live="polite" hidden></p>
+
+      <div class="box" id="box">
+        <button type="button" class="mic" id="mic" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v5"/>
+          </svg>
+          <span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        </button>
+
+        <input type="text" id="q" autocomplete="off" spellcheck="false" enterkeyhint="send">
+
+        <button type="button" class="send" id="go" aria-label="Ask">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 19V5M5 12l7-7 7 7"/>
+          </svg>
+        </button>
+      </div>
+
+      <p class="nomic" id="nomic" hidden></p>
+      <p class="foot">
+        <span id="f2"></span>
+        <a href="https://eservices.uk.gov.in/" target="_blank" rel="noopener noreferrer">eservices.uk.gov.in</a> ·
+        <a href="tel:1905">1905</a> · <span id="es-build">—</span>
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- ─────────────────────────────────────────────── language sheet -->
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
+  <div class="sheet-card">
+    <div class="sheet-top">
+      <h2 id="sheet-title">भाषा चुनिए</h2>
+      <button type="button" class="chip chip-sq" id="sheet-close" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="lang-list" id="lang-list"></div>
+    <p class="band draft" id="draftwarn" hidden></p>
+  </div>
+</div>
+
+<div class="flow" id="flow" hidden></div>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/kb.js"></script>
+<script src="assets/regional.js"></script>
+<script src="assets/match.js"></script>
+<script src="assets/forms.js"></script>
+<script src="assets/digilocker.js"></script>
+<script src="assets/store.js"></script>
+<script src="assets/schedule.js"></script>
+<script src="assets/flow.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

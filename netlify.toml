@@ -1,0 +1,15 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# The frame sequence is content-hashed by name and never changes in place,
+# so it can be cached hard. 201 files is the whole payload.
+[[headers]]
+  for = "/construction/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

@@ -1,0 +1,23 @@
+{
+  "name": "ek-sawal",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "Ek Sawal — a life-event, voice-first front door for Uttarakhand citizen services. Eight Indian languages. Zero dependencies.",
+  "scripts": {
+    "start": "node server.js",
+    "export": "node tools/export-json.js",
+    "test": "echo Open http://localhost:8090/test.html in a browser",
+    "single": "node tools/build-single.js"
+  },
+  "license": "MIT",
+  "keywords": [
+    "uttarakhand",
+    "e-governance",
+    "accessibility",
+    "voice",
+    "hindi",
+    "garhwali",
+    "kumaoni"
+  ]
+}

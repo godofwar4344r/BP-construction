@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Yaksha AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#212121;color:#ececec;font-family:Inter,Arial,sans-serif;height:100vh;overflow:hidden}
+.app{height:100vh;display:flex}
+.side{width:260px;flex:none;background:#171717;padding:10px;display:flex;flex-direction:column;gap:4px}
+.brand{font-weight:700;padding:12px 10px 18px;font-size:17px;display:flex;align-items:center;justify-content:space-between}
+.brand i{color:#10a37f;font-style:normal}
+.nav{background:transparent;color:#eee;border:0;border-radius:8px;text-align:left;padding:11px 10px;font-size:14px;cursor:pointer}
+.nav:hover,.nav.active{background:#2a2a2a}
+.group{font-size:12px;color:#a9a9a9;margin:22px 10px 7px}
+.recent{font-size:13px;color:#d5d5d5;padding:9px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.recent.active{background:#2f2f2f;border-radius:8px}
+.profile{margin-top:auto;border-top:1px solid #303030;padding:14px 10px;font-size:13px}
+.main{flex:1;min-width:0;display:flex;flex-direction:column;background:#212121}
+.top{height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid #2d2d2d}
+.top-left{display:flex;align-items:center;gap:12px}
+.model{font-size:15px;font-weight:600}
+.model select{color:#eee;background:#2b2b2b;border:1px solid #444;border-radius:6px;padding:4px 8px;font:inherit;outline:none}
+.voice-toggle{display:flex;align-items:center;gap:6px;background:#2b2b2b;border:1px solid #444;color:#eee;padding:5px 12px;border-radius:20px;font-size:13px;cursor:pointer;transition:all 0.2s}
+.voice-toggle.active{background:#10a37f;border-color:#10a37f;color:#fff;box-shadow:0 0 10px rgba(16,163,127,0.4)}
+.status{font-size:12px;color:#aaa}
+.chat{flex:1;overflow-y:auto;padding:30px max(28px,14vw) 140px}
+.empty{margin-top:20vh;text-align:center}
+.empty h1{font-size:29px;letter-spacing:-.7px}
+.empty p{color:#aaa;font-size:14px}
+.voice-hero{margin:20px auto;width:80px;height:80px;border-radius:50%;background:#2a2a2a;display:grid;place-items:center;font-size:36px;cursor:pointer;border:2px solid #444;transition:all 0.3s}
+.voice-hero.listening{background:#10a37f;border-color:#25e2b3;box-shadow:0 0 25px #10a37f88;animation:pulse 1.5s infinite}
+.voice-hero.speaking{background:#2575fc;border-color:#6a11cb;box-shadow:0 0 25px #2575fc88;animation:pulse 1s infinite}
+@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
+.message{max-width:800px;display:flex;gap:14px;margin:0 auto 28px;line-height:1.65;font-size:15px;white-space:pre-wrap}
+.avatar{height:28px;width:28px;border-radius:50%;background:#10a37f;display:grid;place-items:center;color:#10251f;font-weight:800;flex:none}
+.message.user .avatar{background:#777;color:#fff}
+.composer{position:fixed;bottom:0;left:260px;right:0;background:linear-gradient(transparent,#212121 20%);padding:25px max(28px,14vw) 25px}
+.inputbox{background:#303030;border:1px solid #4a4a4a;border-radius:26px;display:flex;align-items:center;padding:7px 8px 7px 17px;box-shadow:0 6px 20px #0003}
+.inputbox input{flex:1;min-width:0;background:transparent;border:0;color:#fff;font:14px Inter;outline:0;padding:9px}
+.icon-btn{height:36px;width:36px;border:0;border-radius:50%;font-size:16px;background:transparent;color:#ccc;cursor:pointer;display:grid;place-items:center;transition:background 0.2s}
+.icon-btn:hover{background:#424242;color:#fff}
+.mic-btn.active{background:#e53935!important;color:#fff!important;animation:pulse 1.2s infinite}
+.send{height:34px;width:34px;border:0;border-radius:50%;font-size:17px;background:#ececec;color:#222;cursor:pointer;margin-left:4px}
+.hint{text-align:center;font-size:11px;color:#8c8c8c;padding-top:10px}
+.automation{display:none;max-width:720px;margin:30px auto}
+.automation.show{display:block}
+.card{background:#2b2b2b;border:1px solid #414141;border-radius:12px;padding:20px;margin-bottom:14px}
+.card h2{font-size:20px;margin:0 0 7px}
+.card p{color:#aaa;font-size:13px;line-height:1.6}
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.actions button,.add{border:1px solid #555;background:#383838;color:#eee;border-radius:8px;padding:10px 12px;cursor:pointer}
+.actions button:hover{background:#454545}
+.form{display:flex;gap:8px;flex-wrap:wrap}
+.form select,.form input{border:1px solid #555;background:#202020;color:#eee;border-radius:7px;padding:10px;font:13px Inter}
+.add{background:#10a37f;border-color:#10a37f;color:#fff;font-weight:600}
+.job{padding:10px 0;border-bottom:1px solid #414141;font-size:13px}
+.cancel{float:right;border:0;background:none;color:#f77676;cursor:pointer}
+@media(max-width:700px){.side{display:none}.composer{left:0}.chat{padding:30px 18px 130px}.top{padding:0 18px}}
+</style></head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">yaksha<i>.</i></div>
+    <button class="nav active" onclick="showChat()">✎ New chat</button>
+    <button class="nav" onclick="showAutomations()">◷ Scheduled</button>
+    <button class="nav" onclick="showAutomations()">▦ Automations</button>
+    <div class="group">RECENT</div>
+    <div class="recent active">Local assistant</div>
+    <div class="recent">System health summary</div>
+    <div class="recent">Voice Assistant</div>
+    <div class="profile"><span id="connection">●</span> <span id="connectionText">Checking local model…</span></div>
+  </aside>
+  <main class="main">
+    <header class="top">
+      <div class="top-left">
+        <div class="model">Yaksha <select id="model"><option>Loading models…</option></select></div>
+        <button id="voiceModeBtn" class="voice-toggle" onclick="toggleVoiceMode()">
+          <span id="voiceIcon">🎙️</span> <span id="voiceText">Voice Mode: OFF</span>
+        </button>
+      </div>
+      <div class="status" id="stats">Local-first assistant</div>
+    </header>
+
+    <section id="chat" class="chat">
+      <div class="empty" id="welcome">
+        <div class="voice-hero" id="heroMic" onclick="toggleMic()" title="Click to speak or listen">🎤</div>
+        <h1>How can I help you today?</h1>
+        <p>Your local AI voice assistant, system controls, and automations.</p>
+      </div>
+    </section>
+
+    <section id="automation" class="automation">
+      <div class="card">
+        <h2>Automations</h2>
+        <p>Run trusted local actions at a time you choose. Yaksha needs to stay open for scheduled actions.</p>
+        <div class="actions" id="actions"></div>
+      </div>
+      <div class="card">
+        <h2>Schedule an action</h2>
+        <div class="form">
+          <select id="scheduleAction"></select>
+          <input id="scheduleTime" type="datetime-local">
+          <button class="add" onclick="schedule()">Schedule</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Upcoming</h2>
+        <div id="jobs">No scheduled actions.</div>
+      </div>
+    </section>
+
+    <div class="composer">
+      <div class="inputbox">
+        <input id="prompt" placeholder="Message or talk to Yaksha..." onkeydown="if(event.key==='Enter')send()">
+        <button id="micBtn" class="icon-btn mic-btn" onclick="toggleMic()" title="Toggle Microphone">🎤</button>
+        <button class="send" onclick="send()" aria-label="Send">↑</button>
+      </div>
+      <div class="hint">Yaksha Voice Mode reads out responses automatically and listens to speech.</div>
+    </div>
+  </main>
+</div>
+
+<script>
+const $=x=>document.getElementById(x);
+let actions=[];
+let voiceModeActive = false;
+let isListening = false;
+let recognition = null;
+let synth = 'speechSynthesis' in window ? window.speechSynthesis : null;
+let currentUtterance = null;
+
+// Speech Recognition setup
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+  recognition.onstart = function() {
+    isListening = true;
+    updateMicUI(true);
+  };
+
+  recognition.onresult = function(event) {
+    let transcript = '';
+    for (let i = event.resultIndex; i < event.results.length; i++) {
+      transcript += event.results[i][0].transcript;
+    }
+    $('prompt').value = transcript;
+    if (event.results[0].isFinal && transcript.trim().length > 0) {
+      send();
+    }
+  };
+
+  recognition.onerror = function(event) {
+    console.warn('Speech recognition error/warning:', event.error);
+    isListening = false;
+    updateMicUI(false);
+  };
+
+  recognition.onend = function() {
+    isListening = false;
+    updateMicUI(false);
+  };
+} else {
+  if ($('micBtn')) $('micBtn').title = 'Speech recognition requires Edge or Chrome browser';
+}
+
+function updateMicUI(listening) {
+  if (listening) {
+    $('micBtn')?.classList.add('active');
+    $('heroMic')?.classList.add('listening');
+    $('heroMic')?.classList.remove('speaking');
+  } else {
+    $('micBtn')?.classList.remove('active');
+    $('heroMic')?.classList.remove('listening');
+  }
+}
+
+function toggleMic() {
+  if (!recognition) {
+    return alert('Speech recognition works best when opened in Microsoft Edge or Google Chrome.');
+  }
+  if (isListening) {
+    recognition.stop();
+  } else {
+    try {
+      if (synth) synth.cancel();
+      recognition.start();
+    } catch(e) {
+      console.warn('Recognition start exception:', e);
+    }
+  }
+}
+
+function toggleVoiceMode() {
+  voiceModeActive = !voiceModeActive;
+  const btn = $('voiceModeBtn');
+  if (voiceModeActive) {
+    btn.classList.add('active');
+    $('voiceText').textContent = 'Voice Mode: ON';
+    speakText("Voice mode activated. How can I help you?", () => {
+      if (voiceModeActive && !isListening) toggleMic();
+    });
+  } else {
+    btn.classList.remove('active');
+    $('voiceText').textContent = 'Voice Mode: OFF';
+    if (synth) synth.cancel();
+    if (isListening && recognition) recognition.stop();
+  }
+}
+
+function speakText(text, onComplete) {
+  const cleanText = text
+    .replace(/[*_#`~]/g, '')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/http[s]?:\/\/\S+/g, 'link');
+
+  if (!cleanText.trim()) return;
+
+  // Try browser native SpeechSynthesis first
+  if (synth) {
+    try {
+      synth.cancel();
+      const utterance = new SpeechSynthesisUtterance(cleanText);
+      utterance.rate = 1.0;
+      utterance.pitch = 1.0;
+      utterance.lang = 'en-US';
+      
+      const voices = synth.getVoices();
+      const preferredVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Jenny') || v.name.includes('Guy')));
+      if (preferredVoice) utterance.voice = preferredVoice;
+
+      utterance.onstart = function() {
+        $('heroMic')?.classList.add('speaking');
+      };
+
+      utterance.onend = function() {
+        $('heroMic')?.classList.remove('speaking');
+        if (onComplete) onComplete();
+        else if (voiceModeActive && !isListening) {
+          setTimeout(() => { if (voiceModeActive && !isListening) toggleMic(); }, 500);
+        }
+      };
+
+      utterance.onerror = function(e) {
+        console.warn('Browser TTS error, using server fallback:', e);
+        $('heroMic')?.classList.remove('speaking');
+        speakViaServer(cleanText, onComplete);
+      };
+
+      currentUtterance = utterance;
+      synth.speak(utterance);
+      return;
+    } catch(e) {
+      console.warn('Speech synthesis exception, using server fallback:', e);
+    }
+  }
+
+  // Fallback to local server python pyttsx3 audio generator
+  speakViaServer(cleanText, onComplete);
+}
+
+async function speakViaServer(cleanText, onComplete) {
+  try {
+    $('heroMic')?.classList.add('speaking');
+    const r = await fetch('/api/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text: cleanText })
+    });
+    if (!r.ok) throw new Error('TTS server error');
+    const blob = await r.blob();
+    const audioUrl = URL.createObjectURL(blob);
+    const audio = new Audio(audioUrl);
+    audio.onended = function() {
+      $('heroMic')?.classList.remove('speaking');
+      if (onComplete) onComplete();
+      else if (voiceModeActive && !isListening) {
+        setTimeout(() => { if (voiceModeActive && !isListening) toggleMic(); }, 500);
+      }
+    };
+    audio.onerror = function() {
+      $('heroMic')?.classList.remove('speaking');
+    };
+    audio.play();
+  } catch(e) {
+    console.error('Server TTS failed:', e);
+    $('heroMic')?.classList.remove('speaking');
+  }
+}
+
+
+function showChat(){
+  $('chat').style.display='block';
+  $('automation').classList.remove('show');
+  document.querySelector('.composer').style.display='block';
+  $('prompt').focus();
+}
+
+function showAutomations(){
+  $('chat').style.display='none';
+  $('automation').classList.add('show');
+  document.querySelector('.composer').style.display='none';
+  jobs();
+}
+
+function append(text, user) {
+  $('welcome')?.remove();
+  const m = document.createElement('div');
+  m.className = 'message ' + (user ? 'user' : '');
+  m.innerHTML = '<div class="avatar">' + (user ? 'Y' : 'Y') + '</div><div></div>';
+  m.lastElementChild.textContent = text;
+  $('chat').append(m);
+  $('chat').scrollTop = $('chat').scrollHeight;
+  return m;
+}
+
+async function send() {
+  const text = $('prompt').value.trim();
+  if (!text) return;
+  $('prompt').value = '';
+  append(text, true);
+  
+  const pending = append('Yaksha is thinking…', false);
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 90000);
+    const r = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, model: $('model').value }),
+      signal: controller.signal
+    });
+    clearTimeout(timer);
+    const d = await r.json();
+    const reply = d.reply || d.error || 'No response';
+    pending.lastElementChild.textContent = reply;
+
+    if (voiceModeActive) {
+      speakText(reply);
+    }
+  } catch (e) {
+    const errText = e.name === 'AbortError' ? 'The local model did not reply within 90 seconds.' : 'Could not reach Yaksha: ' + e.message;
+    pending.lastElementChild.textContent = errText;
+    if (voiceModeActive) speakText(errText);
+  }
+}
+
+async function load() {
+  try {
+    const d = await (await fetch('/api/status')).json();
+    $('stats').textContent = 'CPU ' + d.cpu_percent + '% · RAM ' + d.ram_percent + '%';
+    const online = d.ollama_online || d.lm_online;
+    $('connection').style.color = online ? '#10a37f' : '#f77676';
+    $('connectionText').textContent = online ? 'Local model connected' : 'No local model server';
+    if (d.models?.length && !$('model').dataset.loaded) {
+      $('model').innerHTML = d.models.map(m => '<option value="' + m.name + '">' + m.name + ' · ' + m.source + '</option>').join('');
+      $('model').dataset.loaded = 'true';
+    }
+  } catch (e) {
+    $('connectionText').textContent = 'Start Yaksha server';
+  }
+}
+
+async function loadActions() {
+  actions = await (await fetch('/api/actions')).json();
+  $('actions').innerHTML = actions.map(a => '<button onclick="act(\'' + a.id + '\')">' + a.name + '</button>').join('');
+  $('scheduleAction').innerHTML = actions.map(a => '<option value="' + a.id + '">' + a.name + '</option>').join('');
+}
+
+async function act(id) {
+  const a = actions.find(x=>x.id===id);
+  const r = await fetch('/api/actions/'+id, {method:'POST'});
+  const d = await r.json();
+  showChat();
+  const msg = d.message || d.error || a.name;
+  append(msg, false);
+  if (voiceModeActive) speakText(msg);
+}
+
+async function jobs() {
+  const data = await (await fetch('/api/schedules')).json();
+  $('jobs').innerHTML = data.length ? data.map(j => '<div class="job"><b>' + j.action_name + '</b><br><span>' + new Date(j.run_at).toLocaleString() + '</span><button class="cancel" onclick="cancelJob(\'' + j.id + '\')">Cancel</button></div>').join('') : 'No scheduled actions.';
+}
+
+async function schedule() {
+  const run_at = $('scheduleTime').value;
+  if (!run_at) return alert('Choose a future date and time.');
+  const r = await fetch('/api/schedules', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: $('scheduleAction').value, run_at })
+  });
+  const d = await r.json();
+  if (!r.ok) return alert(d.error);
+  $('scheduleTime').value = '';
+  jobs();
+}
+
+async function cancelJob(id) {
+  await fetch('/api/schedules/' + id, { method: 'DELETE' });
+  jobs();
+}
+
+// Pre-warm Web Speech API voices
+if (synth) {
+  if (synth.onvoiceschanged !== undefined) {
+    synth.onvoiceschanged = () => synth.getVoices();
+  }
+  synth.getVoices();
+}
+
+load();
+loadActions();
+setInterval(load, 5000);
+</script>
+</body>
+</html>
+
+

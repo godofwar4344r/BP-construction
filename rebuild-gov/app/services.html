@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>सभी सेवाएं | All Services · Apuni Sarkar</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div id="site-govstrip"></div>
+<div id="site-masthead"></div>
+<div id="site-navbar"></div>
+<nav id="site-breadcrumb"></nav>
+
+<div class="layout">
+  <aside class="sidebar" id="site-sidebar"></aside>
+
+  <main id="main">
+    <div class="page-head">
+      <h1 id="page-title"></h1>
+      <p id="page-sub"></p>
+    </div>
+
+    <!-- Search + filters -->
+    <section class="card">
+      <div class="field-row">
+        <div>
+          <label for="q" class="sr-only">Search services</label>
+          <input type="search" id="q" autocomplete="off">
+        </div>
+        <button class="btn btn-icon" id="btn-mic-search" type="button" title="Search by voice"></button>
+      </div>
+      <div id="search-live" class="small muted" style="margin-top:.5rem;min-height:1.2rem" aria-live="polite"></div>
+      <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem" id="dept-filters"></div>
+    </section>
+
+    <!-- Detail panel -->
+    <section id="detail" hidden style="margin-top:1.5rem"></section>
+
+    <!-- Results -->
+    <section class="section">
+      <div class="section-head">
+        <h2 id="results-title"></h2>
+        <span class="sub" id="results-count"></span>
+      </div>
+      <div class="grid grid-3" id="results"></div>
+      <div class="card" id="empty" hidden></div>
+    </section>
+  </main>
+</div>
+
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/icons.js"></script>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/nlu.js"></script>
+<script src="../assets/js/voice-engine.js"></script>
+<script src="../assets/js/digilocker.js"></script>
+<script src="../assets/js/agent.js"></script>
+<script src="../assets/js/app.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var activeDept = null;
+  var allServices = [];
+  var hi;
+
+  App.init({ base: '../', page: 'services' }).then(function (data) {
+    hi = Store.lang === 'hi';
+    allServices = data.services;
+    Voice.init({ provider: 'webspeech', lang: Store.lang });
+
+    var totals = data._meta.liveTotals;
+
+    document.getElementById('page-title').textContent = Store.t('navServices');
+    document.getElementById('page-sub').textContent = hi
+      ? 'उत्तराखंड की ' + totals.services + ' सरकारी सेवाएं, ' + totals.departments +
+        ' विभागों से। जिन पर आवाज़ का चिह्न है, वे बोल कर भरी जा सकती हैं।'
+      : totals.services + ' government services from ' + totals.departments +
+        ' departments. Those marked with a mic can be filled by speaking.';
+
+    document.getElementById('q').placeholder = Store.t('searchPlaceholder');
+    document.getElementById('results-title').textContent = hi ? 'सेवाएं' : 'Services';
+    document.getElementById('btn-mic-search').innerHTML = App.icon('mic', 18);
+
+    renderFilters(data.departments);
+    wire();
+
+    activeDept = App.param('dept');
+    var q = App.param('q');
+    if (q) document.getElementById('q').value = q;
+
+    render();
+
+    var open = App.param('open') || App.param('svc');
+    if (open) {
+      var svc = Store.service(open);
+      if (svc) showDetail(svc);
+    }
+  });
+
+  /* --------------------------------------------------------------- filters */
+
+  function renderFilters(depts) {
+    var wrap = document.getElementById('dept-filters');
+
+    var all = document.createElement('button');
+    all.type = 'button';
+    all.className = 'chip';
+    all.textContent = hi ? 'सभी विभाग' : 'All departments';
+    all.dataset.dept = '';
+    wrap.appendChild(all);
+
+    depts.forEach(function (d) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip';
+      b.dataset.dept = d.slug;
+      b.innerHTML = Icons.forDept(d.slug, 15) + App.escape(hi ? d.hi : d.en);
+      wrap.appendChild(b);
+    });
+
+    wrap.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-dept]');
+      if (!btn) return;
+      activeDept = btn.dataset.dept || null;
+      render();
+    });
+  }
+
+  /* ---------------------------------------------------------------- render */
+
+  function render() {
+    var q = document.getElementById('q').value.trim();
+    var list = q ? NLU.searchServices(q, 400) : allServices.slice();
+
+    if (activeDept) {
+      list = list.filter(function (s) { return s.dept === activeDept; });
+    }
+
+    document.querySelectorAll('#dept-filters [data-dept]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String((b.dataset.dept || null) === activeDept));
+    });
+
+    var wrap = document.getElementById('results');
+    wrap.innerHTML = '';
+    list.forEach(function (svc) { wrap.appendChild(App.serviceCard(svc, showDetail)); });
+
+    document.getElementById('results-count').textContent =
+      list.length + ' ' + (hi ? 'सेवाएं' : 'services');
+
+    var empty = document.getElementById('empty');
+    empty.hidden = list.length > 0;
+    if (!list.length) {
+      empty.innerHTML = '<p class="muted" style="margin:0">' + (hi
+        ? 'कोई सेवा नहीं मिली। कोई और शब्द आज़माइए, या माइक दबा कर बोलिए।'
+        : 'No services found. Try another word, or press the mic and speak.') + '</p>';
+    }
+  }
+
+  /* ---------------------------------------------------------------- detail */
+
+  function showDetail(svc) {
+    var el = document.getElementById('detail');
+    el.hidden = false;
+
+    var fromLocker = (svc.docs || []).filter(function (d) { return d.digilocker; });
+    var manual = DigiLocker.manualDocs(svc);
+    var generated = DigiLocker.generatedDocs(svc);
+    var voiceReady = svc.voiceForm && svc.voiceForm.length;
+
+    function docRow(d, icon, cls, badgeCls, badge) {
+      return '<div class="dl-doc ' + cls + '">' +
+        '<span class="ico">' + App.icon(icon, 18) + '</span>' +
+        '<span class="grow small">' + App.escape(hi ? d.hi : d.en) +
+          (d.required ? '' : ' <span class="tiny muted">(' + (hi ? 'वैकल्पिक' : 'optional') + ')</span>') +
+        '</span>' +
+        '<span class="pill ' + badgeCls + '">' + badge + '</span></div>';
+    }
+
+    el.innerHTML =
+      '<div class="card">' +
+        '<div class="card-head" style="align-items:flex-start">' +
+          '<div style="display:flex;gap:.9rem;align-items:flex-start">' +
+            '<span class="svc-icon" style="width:44px;height:44px;flex:none">' +
+              Icons.forService(svc, 24) + '</span>' +
+            '<div>' +
+              '<h2 style="margin:0">' + App.escape(hi ? svc.hi : svc.en) + '</h2>' +
+              '<div class="muted small">' + App.escape(hi ? svc.en : svc.hi) + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<button class="btn btn-ghost btn-sm btn-icon" id="close-detail" aria-label="Close">' +
+            App.icon('close', 15) + '</button>' +
+        '</div>' +
+
+        '<div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.25rem">' +
+          '<span class="pill">' + Icons.forDept(svc.dept, 12) + ' ' +
+            App.escape(hi ? svc.deptHi : svc.deptEn) + '</span>' +
+          '<span class="pill">' + Store.t('fee') + ': ' +
+            (svc.charge ? '₹' + svc.charge : Store.t('free')) + '</span>' +
+          (svc.days ? '<span class="pill">' + App.icon('clock', 12) + svc.days + ' ' +
+            Store.t('days') + '</span>' : '') +
+          (svc.rts ? '<span class="pill pill-green">' + App.icon('check', 12) +
+            Store.t('rtsCovered') + '</span>' : '') +
+          '<span class="pill num">' + App.escape(svc.id) + '</span>' +
+        '</div>' +
+
+        (svc.docs && svc.docs.length
+          ? '<h3>' + Store.t('documents') + '</h3>' +
+            '<div style="margin-bottom:1.25rem">' +
+              fromLocker.map(function (d) {
+                return docRow(d, 'check', 'fetched', 'pill-green', Store.t('fromLocker'));
+              }).join('') +
+              generated.map(function (d) {
+                return docRow(d, 'settings', '', 'pill-blue', Store.t('autoGen'));
+              }).join('') +
+              manual.map(function (d) {
+                return docRow(d, 'upload', 'missing', 'pill-amber', Store.t('uploadNeeded'));
+              }).join('') +
+            '</div>' +
+            (fromLocker.length
+              ? '<p class="small" style="color:var(--green-700);display:flex;gap:.4rem;align-items:flex-start">' +
+                App.icon('check', 16) + '<span>' + (hi
+                  ? fromLocker.length + ' दस्तावेज़ डिजिलॉकर से अपने आप आ जाएंगे — आपको कुछ नहीं लाना पड़ेगा।'
+                  : fromLocker.length + ' documents are pulled from DigiLocker automatically — you bring nothing.') +
+                '</span></p>'
+              : '')
+          : '<p class="muted small">' + (hi
+              ? 'दस्तावेज़ों की सूची विभाग से ली जाती है।'
+              : 'The document list is sourced from the department.') + '</p>') +
+
+        '<div style="display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.25rem">' +
+          (voiceReady
+            ? '<button class="btn btn-lg" id="btn-apply-voice">' + App.icon('mic', 18) +
+              Store.t('applyNow') + '</button>'
+            : '<span class="pill pill-amber">' + (hi
+                ? 'इस सेवा के लिए आवाज़ फ़ॉर्म अभी तैयार नहीं है'
+                : 'Voice form not ready for this service yet') + '</span>') +
+          (svc.external
+            ? '<a class="btn btn-ghost" href="' + svc.external + '" target="_blank" rel="noopener">' +
+              (hi ? 'विभाग की साइट' : 'Department site') + App.icon('external', 15) + '</a>'
+            : '<a class="btn btn-ghost" href="https://eservices.uk.gov.in/service/' + svc.slug +
+              '" target="_blank" rel="noopener">' +
+              (hi ? 'अपुणि सरकार पर देखें' : 'View on Apuni Sarkar') + App.icon('external', 15) + '</a>') +
+        '</div>' +
+      '</div>';
+
+    document.getElementById('close-detail').addEventListener('click', function () { el.hidden = true; });
+
+    var applyBtn = document.getElementById('btn-apply-voice');
+    if (applyBtn) {
+      applyBtn.addEventListener('click', function () {
+        location.href = 'apply.html?svc=' + svc.slug;
+      });
+    }
+
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  /* ------------------------------------------------------------------ wire */
+
+  function wire() {
+    var q = document.getElementById('q');
+    var timer;
+    q.addEventListener('input', function () {
+      clearTimeout(timer);
+      timer = setTimeout(render, 160);
+    });
+
+    var live = document.getElementById('search-live');
+    var micBtn = document.getElementById('btn-mic-search');
+
+    Voice.on('start', function () {
+      micBtn.classList.add('listening');
+      live.textContent = Store.t('listening');
+    });
+    Voice.on('partial', function (t) { live.textContent = t; });
+    Voice.on('end', function () { micBtn.classList.remove('listening'); });
+    Voice.on('error', function (e) { live.textContent = e.message; });
+
+    Voice.on('result', function (text) {
+      live.textContent = '“' + text + '”';
+      q.value = text;
+      activeDept = null;
+      render();
+
+      var m = NLU.matchService(text);
+      if (m && m.score >= 0.8) showDetail(m.service);
+    });
+
+    micBtn.addEventListener('click', function () { Voice.warmUp(); Voice.toggle(); });
+  }
+})();
+</script>
+</body>
+</html>

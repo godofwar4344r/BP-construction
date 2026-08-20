@@ -1,0 +1,2279 @@
+{
+  "meta": {
+    "project": "Ek Sawal",
+    "purpose": "Life-event index of Uttarakhand citizen services",
+    "generated": "2026-08-19",
+    "provenance": {
+      "portal": "Listed on eservices.uk.gov.in, verified 16 Aug 2026. Fee/SLA from department RTS notification.",
+      "known": "Publicly published scheme figures. Confirm against the current government order.",
+      "draft": "Placeholder. Not shown to citizens without a warning."
+    },
+    "counts": {
+      "services": 28,
+      "portalVerified": 15,
+      "needsConfirmation": 13,
+      "lifeEvents": 12,
+      "documents": 22,
+      "languages": 4,
+      "regionalWords": 97
+    }
+  },
+  "languages": [
+    {
+      "code": "hi",
+      "name": "हिन्दी",
+      "en": "Hindi",
+      "asr": "hi-IN",
+      "tts": "hi-IN",
+      "tier": 1,
+      "dir": "ltr",
+      "live": true
+    },
+    {
+      "code": "en",
+      "name": "English",
+      "en": "English",
+      "asr": "en-IN",
+      "tts": "en-IN",
+      "tier": 1,
+      "dir": "ltr",
+      "live": true
+    },
+    {
+      "code": "gbm",
+      "name": "गढ़वळी",
+      "en": "Garhwali",
+      "asr": "hi-IN",
+      "tts": "hi-IN",
+      "tier": 2,
+      "dir": "ltr",
+      "content": "hi",
+      "live": true
+    },
+    {
+      "code": "kfy",
+      "name": "कुमाऊँनी",
+      "en": "Kumaoni",
+      "asr": "hi-IN",
+      "tts": "hi-IN",
+      "tier": 2,
+      "dir": "ltr",
+      "content": "hi",
+      "live": true
+    }
+  ],
+  "documents": {
+    "aadhaar": {
+      "hi": "आधार कार्ड",
+      "en": "Aadhaar card",
+      "digilocker": true
+    },
+    "photo": {
+      "hi": "पासपोर्ट साइज़ फोटो",
+      "en": "Passport size photo",
+      "digilocker": false
+    },
+    "pariwar": {
+      "hi": "परिवार रजिस्टर की नकल",
+      "en": "Copy of Pariwar Register",
+      "digilocker": true
+    },
+    "ration": {
+      "hi": "राशन कार्ड",
+      "en": "Ration card",
+      "digilocker": true
+    },
+    "income": {
+      "hi": "आय प्रमाण पत्र",
+      "en": "Income certificate",
+      "digilocker": true
+    },
+    "swaghosh": {
+      "hi": "स्व-घोषणा पत्र (फॉर्म के साथ मिलेगा)",
+      "en": "Self-declaration (given with the form)",
+      "digilocker": false
+    },
+    "bank": {
+      "hi": "बैंक पासबुक (आधार से जुड़ी)",
+      "en": "Bank passbook (Aadhaar-linked)",
+      "digilocker": false
+    },
+    "tenth": {
+      "hi": "10वीं की अंकतालिका",
+      "en": "Class 10 marksheet",
+      "digilocker": true
+    },
+    "twelfth": {
+      "hi": "12वीं की अंकतालिका",
+      "en": "Class 12 marksheet",
+      "digilocker": true
+    },
+    "nivas15": {
+      "hi": "15 साल से उत्तराखंड में रहने का सबूत (रजिस्ट्री / खतौनी / स्कूल TC)",
+      "en": "15-year residence proof (registry / khatauni / school TC)",
+      "digilocker": true
+    },
+    "khatauni": {
+      "hi": "ज़मीन की खतौनी",
+      "en": "Land record (khatauni)",
+      "digilocker": true
+    },
+    "caste": {
+      "hi": "पिता या दादा का जाति प्रमाण पत्र (अगर हो)",
+      "en": "Father's or grandfather's caste certificate (if available)",
+      "digilocker": true
+    },
+    "mobile": {
+      "hi": "चालू मोबाइल नंबर",
+      "en": "Working mobile number",
+      "digilocker": false
+    },
+    "death": {
+      "hi": "मृत्यु प्रमाण पत्र",
+      "en": "Death certificate",
+      "digilocker": true
+    },
+    "hospital": {
+      "hi": "अस्पताल का जन्म पर्चा",
+      "en": "Hospital birth slip",
+      "digilocker": false
+    },
+    "dpr": {
+      "hi": "बिज़नेस का सादा प्लान (कितना खर्च, क्या काम)",
+      "en": "Simple business plan (cost and activity)",
+      "digilocker": false
+    },
+    "marks": {
+      "hi": "पढ़ाई का कोई भी सर्टिफिकेट",
+      "en": "Any education certificate",
+      "digilocker": true
+    },
+    "disab": {
+      "hi": "दिव्यांगता प्रमाण पत्र (40% या ज़्यादा)",
+      "en": "Disability certificate (40%+)",
+      "digilocker": true
+    },
+    "affidavit": {
+      "hi": "शपथ पत्र (नोटरी से)",
+      "en": "Affidavit (notarised)",
+      "digilocker": false
+    },
+    "property": {
+      "hi": "ज़मीन/मकान के कागज़",
+      "en": "Property papers",
+      "digilocker": true
+    },
+    "character": {
+      "hi": "चरित्र प्रमाण पत्र",
+      "en": "Character certificate",
+      "digilocker": true
+    },
+    "domicile": {
+      "hi": "मूल निवास प्रमाण पत्र",
+      "en": "Domicile certificate",
+      "digilocker": true
+    }
+  },
+  "offices": {
+    "csc": {
+      "hi": "नज़दीकी CSC / जन सेवा केंद्र, या खुद ऑनलाइन",
+      "en": "Nearest CSC / Jan Seva Kendra, or online yourself"
+    },
+    "tehsil": {
+      "hi": "तहसील कार्यालय",
+      "en": "Tehsil office"
+    },
+    "panchayat": {
+      "hi": "ग्राम पंचायत कार्यालय",
+      "en": "Gram Panchayat office"
+    },
+    "block": {
+      "hi": "ब्लॉक कार्यालय / समाज कल्याण विभाग",
+      "en": "Block office / Social Welfare dept"
+    },
+    "dic": {
+      "hi": "जिला उद्योग केंद्र (DIC)",
+      "en": "District Industries Centre (DIC)"
+    },
+    "hospital": {
+      "hi": "कोई भी सरकारी या सूचीबद्ध अस्पताल",
+      "en": "Any government or empanelled hospital"
+    },
+    "phone": {
+      "hi": "फोन पर — 1905 डायल कीजिए",
+      "en": "By phone — dial 1905"
+    },
+    "online": {
+      "hi": "पूरी तरह ऑनलाइन, घर से",
+      "en": "Fully online, from home"
+    }
+  },
+  "services": [
+    {
+      "id": "income",
+      "name": {
+        "hi": "आय प्रमाण पत्र",
+        "en": "Income Certificate"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": 40,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "यह कागज़ बताता है कि आपके घर की साल भर की कमाई कितनी है। छात्रवृत्ति, फीस माफी और ज़्यादातर सरकारी मदद के लिए यही सबसे पहले माँगा जाता है।",
+        "en": "This paper states your family's yearly income. It is the first thing asked for scholarships, fee waivers and most government help."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "pariwar",
+        "swaghosh"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "तहसीलदार",
+        "en": "Tehsildar"
+      },
+      "appealTo": {
+        "hi": "उपजिलाधिकारी (SDM)",
+        "en": "Sub-Divisional Magistrate (SDM)"
+      },
+      "validity": {
+        "hi": "6 महीने",
+        "en": "6 months"
+      },
+      "applyAt": "csc",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "आय",
+        "आय प्रमाण",
+        "आमदनी",
+        "कमाई",
+        "income",
+        "income certificate",
+        "aay",
+        "aay praman patra",
+        "salary certificate",
+        "earning"
+      ],
+      "situationTerms": [
+        "छात्रवृत्ति",
+        "scholarship",
+        "fee waiver",
+        "फीस माफी",
+        "admission",
+        "आमदनि",
+        "कमै",
+        "कमाई कु कागज",
+        "आय कु कागद"
+      ]
+    },
+    {
+      "id": "domicile",
+      "name": {
+        "hi": "स्थाई निवास प्रमाण पत्र (मूल निवास)",
+        "en": "Domicile / Permanent Resident Certificate"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": 40,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "यह साबित करता है कि आप उत्तराखंड के पक्के निवासी हैं। राज्य की सरकारी नौकरी, UKPSC और राज्य कोटे से पढ़ाई के लिए ज़रूरी है।",
+        "en": "Proves you are a permanent resident of Uttarakhand. Needed for state government jobs, UKPSC exams and state-quota admissions."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "nivas15",
+        "tenth"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "उपजिलाधिकारी (SDM) / तहसीलदार",
+        "en": "SDM / Tehsildar"
+      },
+      "appealTo": {
+        "hi": "जिलाधिकारी (DM)",
+        "en": "District Magistrate (DM)"
+      },
+      "validity": {
+        "hi": "जीवन भर",
+        "en": "Lifetime"
+      },
+      "applyAt": "csc",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "मूल निवास",
+        "स्थाई निवास",
+        "निवास प्रमाण",
+        "domicile",
+        "permanent resident",
+        "mool niwas",
+        "sthai niwas",
+        "residence certificate"
+      ],
+      "situationTerms": [
+        "सरकारी नौकरी",
+        "government job",
+        "ukpsc",
+        "state quota",
+        "भर्ती",
+        "मूल निवास कु कागज",
+        "यख कु रैवासि",
+        "यखै कु छ्यूं"
+      ]
+    },
+    {
+      "id": "caste",
+      "name": {
+        "hi": "जाति प्रमाण पत्र",
+        "en": "Caste Certificate"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": 40,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "SC, ST या OBC वर्ग का सरकारी प्रमाण। स्कूल-कॉलेज में दाखिला, छात्रवृत्ति और नौकरी में आरक्षण के लिए ज़रूरी है।",
+        "en": "Official proof of SC, ST or OBC category. Required for school and college admission, scholarships and reservation in jobs."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "pariwar",
+        "caste",
+        "swaghosh"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "तहसीलदार",
+        "en": "Tehsildar"
+      },
+      "appealTo": {
+        "hi": "उपजिलाधिकारी (SDM)",
+        "en": "Sub-Divisional Magistrate (SDM)"
+      },
+      "validity": {
+        "hi": "जीवन भर (OBC के लिए आय वाला हिस्सा 3 साल)",
+        "en": "Lifetime (income portion of OBC: 3 years)"
+      },
+      "applyAt": "csc",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "जाति",
+        "जाति प्रमाण",
+        "कास्ट",
+        "sc",
+        "st",
+        "obc",
+        "caste",
+        "caste certificate",
+        "jati",
+        "jati praman patra",
+        "reservation",
+        "आरक्षण"
+      ],
+      "situationTerms": [
+        "आरक्षण",
+        "reservation",
+        "scholarship",
+        "छात्रवृत्ति",
+        "जाति कु कागज",
+        "जात कु प्रमाण",
+        "जात कु कागद"
+      ]
+    },
+    {
+      "id": "parvatiya",
+      "name": {
+        "hi": "पर्वतीय प्रमाण पत्र",
+        "en": "Hill Resident Certificate"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": 40,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "साबित करता है कि आप पहाड़ी क्षेत्र के निवासी हैं। कुछ भर्तियों और योजनाओं में पहाड़ के लोगों को अलग लाभ मिलता है।",
+        "en": "Proves you belong to a hill area. Some recruitments and schemes give hill residents a separate benefit."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "nivas15",
+        "khatauni"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "तहसीलदार",
+        "en": "Tehsildar"
+      },
+      "appealTo": {
+        "hi": "उपजिलाधिकारी (SDM)",
+        "en": "Sub-Divisional Magistrate (SDM)"
+      },
+      "validity": {
+        "hi": "जीवन भर",
+        "en": "Lifetime"
+      },
+      "applyAt": "csc",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "पर्वतीय",
+        "पहाड़ी प्रमाण",
+        "parvatiya",
+        "hill certificate",
+        "hill resident",
+        "pahadi"
+      ],
+      "situationTerms": []
+    },
+    {
+      "id": "character",
+      "name": {
+        "hi": "चरित्र प्रमाण पत्र",
+        "en": "Character Certificate"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": 40,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "बताता है कि आप पर कोई आपराधिक मामला दर्ज नहीं है। नौकरी, ठेके और कई फॉर्म में माँगा जाता है।",
+        "en": "States that no criminal case is registered against you. Asked for jobs, contracts and many application forms."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "swaghosh"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "तहसीलदार",
+        "en": "Tehsildar"
+      },
+      "appealTo": {
+        "hi": "उपजिलाधिकारी (SDM)",
+        "en": "Sub-Divisional Magistrate (SDM)"
+      },
+      "validity": {
+        "hi": "6 महीने",
+        "en": "6 months"
+      },
+      "applyAt": "csc",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "चरित्र",
+        "चरित्र प्रमाण",
+        "character",
+        "character certificate",
+        "charitra",
+        "police verification",
+        "पुलिस वेरिफिकेशन"
+      ],
+      "situationTerms": [
+        "character certificate for job",
+        "नौकरी के लिए चरित्र",
+        "ठेका",
+        "contract"
+      ]
+    },
+    {
+      "id": "haisiyat",
+      "name": {
+        "hi": "हैसियत प्रमाण पत्र",
+        "en": "Solvency Certificate"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": null,
+      "slaWorkingDays": 30,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "बताता है कि आपकी संपत्ति कितने की है। बड़े ठेके, ज़मानत और बैंक गारंटी के लिए माँगा जाता है।",
+        "en": "States the value of your property. Asked for large contracts, bail and bank guarantees."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "property",
+        "khatauni",
+        "affidavit"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "उपजिलाधिकारी (SDM)",
+        "en": "Sub-Divisional Magistrate (SDM)"
+      },
+      "appealTo": {
+        "hi": "जिलाधिकारी (DM)",
+        "en": "District Magistrate (DM)"
+      },
+      "validity": {
+        "hi": "1 साल",
+        "en": "1 year"
+      },
+      "applyAt": "tehsil",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "हैसियत",
+        "haisiyat",
+        "solvency",
+        "solvency certificate",
+        "net worth",
+        "संपत्ति प्रमाण"
+      ],
+      "situationTerms": [
+        "ठेका",
+        "contract",
+        "tender",
+        "bank guarantee"
+      ]
+    },
+    {
+      "id": "ews",
+      "name": {
+        "hi": "EWS — आय एवं संपत्ति प्रमाण पत्र",
+        "en": "EWS Income & Asset Certificate"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": 40,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "सामान्य वर्ग के गरीब परिवारों के लिए। नौकरी और दाखिले में 10% EWS आरक्षण इसी से मिलता है।",
+        "en": "For economically weaker families in the general category. The 10% EWS reservation in jobs and admissions runs on this."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "pariwar",
+        "khatauni",
+        "swaghosh"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "तहसीलदार",
+        "en": "Tehsildar"
+      },
+      "appealTo": {
+        "hi": "उपजिलाधिकारी (SDM)",
+        "en": "Sub-Divisional Magistrate (SDM)"
+      },
+      "validity": {
+        "hi": "1 वित्तीय वर्ष",
+        "en": "1 financial year"
+      },
+      "applyAt": "csc",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "ews",
+        "ई डब्ल्यू एस",
+        "आय एवं संपत्ति",
+        "income and asset",
+        "economically weaker",
+        "general category reservation",
+        "सामान्य वर्ग आरक्षण"
+      ],
+      "situationTerms": [
+        "आरक्षण",
+        "reservation",
+        "admission"
+      ]
+    },
+    {
+      "id": "uttarjeevi",
+      "name": {
+        "hi": "उत्तरजीवी प्रमाण पत्र",
+        "en": "Survivor Certificate"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": 40,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "किसी की मृत्यु के बाद यह बताता है कि परिवार में कौन-कौन जीवित उत्तराधिकारी है। पेंशन, बैंक और ज़मीन के नाम बदलने में लगता है।",
+        "en": "After a death, states who the surviving heirs are. Needed for pension, bank claims and transferring land records."
+      },
+      "documents": [
+        "aadhaar",
+        "death",
+        "pariwar",
+        "affidavit"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "तहसीलदार",
+        "en": "Tehsildar"
+      },
+      "appealTo": {
+        "hi": "उपजिलाधिकारी (SDM)",
+        "en": "Sub-Divisional Magistrate (SDM)"
+      },
+      "validity": {
+        "hi": "जीवन भर",
+        "en": "Lifetime"
+      },
+      "applyAt": "tehsil",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "उत्तरजीवी",
+        "उत्तराधिकारी",
+        "वारिस",
+        "survivor",
+        "legal heir",
+        "succession",
+        "uttarjeevi",
+        "warish"
+      ],
+      "situationTerms": [
+        "मृत्यु के बाद",
+        "after death",
+        "pension transfer",
+        "बैंक क्लेम"
+      ]
+    },
+    {
+      "id": "minority",
+      "name": {
+        "hi": "अल्पसंख्यक प्रमाण पत्र",
+        "en": "Minority Certificate"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": 40,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "मुस्लिम, सिख, ईसाई, बौद्ध, जैन और पारसी समुदाय के लिए। अल्पसंख्यक छात्रवृत्ति और योजनाओं में लगता है।",
+        "en": "For Muslim, Sikh, Christian, Buddhist, Jain and Parsi communities. Used for minority scholarships and schemes."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "pariwar",
+        "swaghosh"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "तहसीलदार",
+        "en": "Tehsildar"
+      },
+      "appealTo": {
+        "hi": "उपजिलाधिकारी (SDM)",
+        "en": "Sub-Divisional Magistrate (SDM)"
+      },
+      "validity": {
+        "hi": "जीवन भर",
+        "en": "Lifetime"
+      },
+      "applyAt": "csc",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "अल्पसंख्यक",
+        "minority",
+        "minority certificate",
+        "alpsankhyak"
+      ],
+      "situationTerms": [
+        "छात्रवृत्ति",
+        "scholarship"
+      ]
+    },
+    {
+      "id": "freedom",
+      "name": {
+        "hi": "स्वतंत्रता संग्राम सेनानी प्रमाण पत्र",
+        "en": "Freedom Fighter Certificate"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": null,
+      "slaWorkingDays": 30,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "स्वतंत्रता सेनानी या उनके आश्रित परिवार के लिए। पेंशन और आरक्षण का लाभ इसी से मिलता है।",
+        "en": "For freedom fighters or their dependants. Pension and reservation benefits run on this."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "pariwar",
+        "affidavit"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "जिलाधिकारी (DM)",
+        "en": "District Magistrate (DM)"
+      },
+      "appealTo": {
+        "hi": "मंडलायुक्त",
+        "en": "Divisional Commissioner"
+      },
+      "validity": {
+        "hi": "जीवन भर",
+        "en": "Lifetime"
+      },
+      "applyAt": "tehsil",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "स्वतंत्रता सेनानी",
+        "freedom fighter",
+        "swatantrata senani"
+      ],
+      "situationTerms": []
+    },
+    {
+      "id": "lic-sahukari",
+      "name": {
+        "hi": "साहूकारी व्यवसाय लाइसेंस",
+        "en": "Moneylender Licence"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": null,
+      "slaWorkingDays": 30,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "ब्याज पर पैसा उधार देने का कानूनी लाइसेंस। बिना इसके यह काम करना गैर-कानूनी है।",
+        "en": "Legal licence to lend money on interest. Doing this without one is illegal."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "property",
+        "affidavit"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "उपजिलाधिकारी (SDM)",
+        "en": "Sub-Divisional Magistrate (SDM)"
+      },
+      "appealTo": {
+        "hi": "जिलाधिकारी (DM)",
+        "en": "District Magistrate (DM)"
+      },
+      "validity": {
+        "hi": "नवीनीकरण ज़रूरी",
+        "en": "Renewal required"
+      },
+      "applyAt": "tehsil",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "साहूकारी",
+        "sahukari",
+        "moneylender",
+        "money lender licence",
+        "ब्याज पर पैसा"
+      ],
+      "situationTerms": []
+    },
+    {
+      "id": "lic-stamp",
+      "name": {
+        "hi": "स्टाम्प विक्रेता लाइसेंस",
+        "en": "Stamp Vendor Licence"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": null,
+      "slaWorkingDays": 30,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "सरकारी स्टाम्प पेपर बेचने का लाइसेंस।",
+        "en": "Licence to sell government stamp paper."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "character",
+        "affidavit"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "जिलाधिकारी (DM)",
+        "en": "District Magistrate (DM)"
+      },
+      "appealTo": {
+        "hi": "मंडलायुक्त",
+        "en": "Divisional Commissioner"
+      },
+      "validity": {
+        "hi": "नवीनीकरण ज़रूरी",
+        "en": "Renewal required"
+      },
+      "applyAt": "tehsil",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "स्टाम्प विक्रेता",
+        "stamp vendor",
+        "stamp licence",
+        "स्टाम्प पेपर बेचना"
+      ],
+      "situationTerms": []
+    },
+    {
+      "id": "lic-arayaj",
+      "name": {
+        "hi": "अरायज नवीश लाइसेंस",
+        "en": "Deed Writer Licence"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": null,
+      "slaWorkingDays": 30,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "तहसील में कानूनी कागज़ और अर्ज़ी लिखने का लाइसेंस।",
+        "en": "Licence to write legal deeds and applications at the tehsil."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "marks",
+        "affidavit"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "जिलाधिकारी (DM)",
+        "en": "District Magistrate (DM)"
+      },
+      "appealTo": {
+        "hi": "मंडलायुक्त",
+        "en": "Divisional Commissioner"
+      },
+      "validity": {
+        "hi": "नवीनीकरण ज़रूरी",
+        "en": "Renewal required"
+      },
+      "applyAt": "tehsil",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "अरायज नवीश",
+        "arayaj",
+        "deed writer",
+        "अर्ज़ी नवीस"
+      ],
+      "situationTerms": []
+    },
+    {
+      "id": "character-thekedari",
+      "name": {
+        "hi": "चरित्र प्रमाण पत्र (ठेकेदारी हेतु)",
+        "en": "Character Certificate (for contractors)"
+      },
+      "department": {
+        "hi": "राजस्व विभाग",
+        "en": "Revenue Department"
+      },
+      "feeRupees": 40,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "सरकारी ठेका लेने के लिए अलग से बनने वाला चरित्र प्रमाण पत्र।",
+        "en": "A separate character certificate issued for taking government contracts."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "affidavit"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "तहसीलदार",
+        "en": "Tehsildar"
+      },
+      "appealTo": {
+        "hi": "उपजिलाधिकारी (SDM)",
+        "en": "Sub-Divisional Magistrate (SDM)"
+      },
+      "validity": {
+        "hi": "6 महीने",
+        "en": "6 months"
+      },
+      "applyAt": "tehsil",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "ठेकेदारी चरित्र",
+        "contractor character",
+        "thekedari"
+      ],
+      "situationTerms": [
+        "ठेका",
+        "tender"
+      ]
+    },
+    {
+      "id": "pariwar-register",
+      "name": {
+        "hi": "परिवार रजिस्टर की नकल",
+        "en": "Copy of Pariwar Register"
+      },
+      "department": {
+        "hi": "पंचायती राज विभाग",
+        "en": "Panchayati Raj Department"
+      },
+      "feeRupees": 40,
+      "slaWorkingDays": 3,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "गाँव की पंचायत में रखा वह रजिस्टर जिसमें आपके परिवार के सब सदस्यों के नाम दर्ज हैं। बाकी कई कागज़ों के लिए यही आधार बनता है।",
+        "en": "The register kept at your Gram Panchayat listing every member of your family. It is the base document for many others."
+      },
+      "documents": [
+        "aadhaar"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "ग्राम पंचायत विकास अधिकारी (VPDO)",
+        "en": "Village Panchayat Development Officer (VPDO)"
+      },
+      "appealTo": {
+        "hi": "खंड विकास अधिकारी (BDO)",
+        "en": "Block Development Officer (BDO)"
+      },
+      "validity": {
+        "hi": "6 महीने",
+        "en": "6 months"
+      },
+      "applyAt": "panchayat",
+      "officialUrl": "https://eservices.uk.gov.in/",
+      "phone": null,
+      "provenance": "portal",
+      "matchTerms": [
+        "परिवार रजिस्टर",
+        "कुटुंब रजिस्टर",
+        "नकल",
+        "family register",
+        "pariwar register",
+        "kutumb",
+        "nakal"
+      ],
+      "situationTerms": [
+        "कुटुंब रजिस्टर",
+        "परिवार कि नकल",
+        "कुनबा रजिस्टर"
+      ]
+    },
+    {
+      "id": "birth",
+      "name": {
+        "hi": "जन्म प्रमाण पत्र",
+        "en": "Birth Certificate"
+      },
+      "department": {
+        "hi": "पंचायती राज / नगर निकाय",
+        "en": "Panchayati Raj / Urban Local Body"
+      },
+      "feeRupees": 0,
+      "slaWorkingDays": 7,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "बच्चे के जन्म का सरकारी कागज़। स्कूल में दाखिले, आधार और पासपोर्ट के लिए सबसे पहले यही चाहिए। जन्म के 21 दिन के अंदर मुफ़्त बनता है।",
+        "en": "Official record of a child's birth. The first thing needed for school admission, Aadhaar and passport. Free if registered within 21 days."
+      },
+      "documents": [
+        "hospital",
+        "aadhaar",
+        "pariwar"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "ग्राम पंचायत अधिकारी / नगर निकाय रजिस्ट्रार",
+        "en": "Panchayat Officer / Municipal Registrar"
+      },
+      "appealTo": {
+        "hi": "खंड विकास अधिकारी (BDO)",
+        "en": "Block Development Officer (BDO)"
+      },
+      "validity": {
+        "hi": "जीवन भर",
+        "en": "Lifetime"
+      },
+      "applyAt": "panchayat",
+      "officialUrl": "https://crsorgi.gov.in/",
+      "phone": null,
+      "provenance": "known",
+      "matchTerms": [
+        "जन्म प्रमाण",
+        "जन्म प्रमाण पत्र",
+        "बच्चे का सर्टिफिकेट",
+        "birth",
+        "birth certificate",
+        "janam praman patra",
+        "newborn"
+      ],
+      "situationTerms": [
+        "स्कूल में दाखिला",
+        "school admission",
+        "आधार",
+        "passport",
+        "नौनु ह्वे",
+        "नौनी ह्वे",
+        "बच्चा ह्वे",
+        "जनम कु कागज",
+        "ज्यूँ कु कागद"
+      ]
+    },
+    {
+      "id": "death",
+      "name": {
+        "hi": "मृत्यु प्रमाण पत्र",
+        "en": "Death Certificate"
+      },
+      "department": {
+        "hi": "पंचायती राज / नगर निकाय",
+        "en": "Panchayati Raj / Urban Local Body"
+      },
+      "feeRupees": 0,
+      "slaWorkingDays": 7,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "किसी की मृत्यु का सरकारी कागज़। बीमा, पेंशन, बैंक खाता और ज़मीन के नाम बदलने के लिए ज़रूरी है। 21 दिन के अंदर मुफ़्त।",
+        "en": "Official record of a death. Needed for insurance, pension, bank accounts and transferring land. Free within 21 days."
+      },
+      "documents": [
+        "aadhaar",
+        "pariwar"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "ग्राम पंचायत अधिकारी / नगर निकाय रजिस्ट्रार",
+        "en": "Panchayat Officer / Municipal Registrar"
+      },
+      "appealTo": {
+        "hi": "खंड विकास अधिकारी (BDO)",
+        "en": "Block Development Officer (BDO)"
+      },
+      "validity": {
+        "hi": "जीवन भर",
+        "en": "Lifetime"
+      },
+      "applyAt": "panchayat",
+      "officialUrl": "https://crsorgi.gov.in/",
+      "phone": null,
+      "provenance": "known",
+      "matchTerms": [
+        "मृत्यु प्रमाण",
+        "मृत्यु प्रमाण पत्र",
+        "death",
+        "death certificate",
+        "mrityu praman patra"
+      ],
+      "situationTerms": [
+        "बीमा",
+        "insurance",
+        "pension transfer",
+        "मरि गे",
+        "नि रैनि",
+        "स्वर्गवास ह्वे",
+        "मौत कु कागज"
+      ]
+    },
+    {
+      "id": "pension-old",
+      "name": {
+        "hi": "वृद्धावस्था पेंशन",
+        "en": "Old Age Pension"
+      },
+      "department": {
+        "hi": "समाज कल्याण विभाग",
+        "en": "Social Welfare Department"
+      },
+      "feeRupees": 0,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": {
+        "hi": "₹1,500 हर महीने, सीधे बैंक खाते में",
+        "en": "₹1,500 every month, straight to the bank account"
+      },
+      "plainLanguage": {
+        "hi": "60 साल से ऊपर के बुज़ुर्गों को हर महीने पेंशन। आवेदन बिल्कुल मुफ़्त है — किसी को पैसे देने की ज़रूरत नहीं।",
+        "en": "A monthly pension for people above 60. Applying is completely free — nobody needs to be paid."
+      },
+      "documents": [
+        "aadhaar",
+        "bank",
+        "income",
+        "pariwar"
+      ],
+      "eligibility": {
+        "hi": [
+          "उम्र 60 साल या ज़्यादा",
+          "परिवार की सालाना आय तय सीमा से कम",
+          "उत्तराखंड का निवासी"
+        ],
+        "en": [
+          "Age 60 or above",
+          "Family yearly income below the notified limit",
+          "Resident of Uttarakhand"
+        ]
+      },
+      "signedBy": {
+        "hi": "जिला समाज कल्याण अधिकारी (DSWO)",
+        "en": "District Social Welfare Officer (DSWO)"
+      },
+      "appealTo": {
+        "hi": "मुख्य विकास अधिकारी (CDO)",
+        "en": "Chief Development Officer (CDO)"
+      },
+      "validity": {
+        "hi": "हर साल सत्यापन",
+        "en": "Yearly verification"
+      },
+      "applyAt": "block",
+      "officialUrl": "https://socialwelfare.uk.gov.in/",
+      "phone": null,
+      "provenance": "known",
+      "matchTerms": [
+        "वृद्धावस्था पेंशन",
+        "बुढ़ापा पेंशन",
+        "बुज़ुर्ग पेंशन",
+        "old age pension",
+        "vridha pension",
+        "senior citizen pension",
+        "elderly pension",
+        "pension",
+        "पेंशन"
+      ],
+      "situationTerms": [
+        "पिताजी बुज़ुर्ग",
+        "माताजी बुज़ुर्ग",
+        "father old",
+        "mother old",
+        "60 साल",
+        "65 साल",
+        "70 साल",
+        "बुज़ुर्ग",
+        "बुजुर्ग",
+        "senior citizen",
+        "old age",
+        "budhape mein",
+        "स्याणु",
+        "स्याण",
+        "सयाण",
+        "सयाणि",
+        "बुड्या",
+        "बुड्ढ़ा",
+        "बुडा",
+        "बुढ़िया",
+        "बुबा",
+        "बाब",
+        "बौज्यू",
+        "बुबू",
+        "ब्वे",
+        "ईजा",
+        "बोज्यू",
+        "आमा",
+        "दादु",
+        "दादि",
+        "बुढ़ापा कि पेंशन",
+        "स्याणु कि पेंशन"
+      ]
+    },
+    {
+      "id": "pension-widow",
+      "name": {
+        "hi": "विधवा पेंशन",
+        "en": "Widow Pension"
+      },
+      "department": {
+        "hi": "समाज कल्याण विभाग",
+        "en": "Social Welfare Department"
+      },
+      "feeRupees": 0,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": {
+        "hi": "हर महीने पेंशन, सीधे बैंक खाते में",
+        "en": "A monthly pension, straight to the bank account"
+      },
+      "plainLanguage": {
+        "hi": "पति की मृत्यु के बाद महिलाओं के लिए हर महीने की पेंशन। यह वृद्धावस्था पेंशन से अलग योजना है — उम्र 60 से कम हो तब भी मिल सकती है।",
+        "en": "A monthly pension for women after a husband's death. This is a separate scheme from old age pension — it can apply below 60 too."
+      },
+      "documents": [
+        "aadhaar",
+        "bank",
+        "death",
+        "income",
+        "pariwar"
+      ],
+      "eligibility": {
+        "hi": [
+          "पति की मृत्यु का प्रमाण पत्र",
+          "परिवार की आय तय सीमा से कम",
+          "दोबारा विवाह न हुआ हो"
+        ],
+        "en": [
+          "Husband's death certificate",
+          "Family income below the notified limit",
+          "Not remarried"
+        ]
+      },
+      "signedBy": {
+        "hi": "जिला समाज कल्याण अधिकारी (DSWO)",
+        "en": "District Social Welfare Officer (DSWO)"
+      },
+      "appealTo": {
+        "hi": "मुख्य विकास अधिकारी (CDO)",
+        "en": "Chief Development Officer (CDO)"
+      },
+      "validity": {
+        "hi": "हर साल सत्यापन",
+        "en": "Yearly verification"
+      },
+      "applyAt": "block",
+      "officialUrl": "https://socialwelfare.uk.gov.in/",
+      "phone": null,
+      "provenance": "known",
+      "matchTerms": [
+        "विधवा पेंशन",
+        "widow pension",
+        "vidhwa pension",
+        "पति की मृत्यु पेंशन",
+        "pension",
+        "पेंशन"
+      ],
+      "situationTerms": [
+        "पति नहीं रहे",
+        "husband died",
+        "विधवा",
+        "widow",
+        "vidhwa",
+        "पति की मृत्यु",
+        "husband passed away",
+        "रांड",
+        "बिधवा",
+        "विधवा ह्वेगे",
+        "स्वामी नि रैनि"
+      ]
+    },
+    {
+      "id": "pension-divyang",
+      "name": {
+        "hi": "दिव्यांग पेंशन",
+        "en": "Disability Pension"
+      },
+      "department": {
+        "hi": "समाज कल्याण विभाग",
+        "en": "Social Welfare Department"
+      },
+      "feeRupees": 0,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": {
+        "hi": "हर महीने पेंशन, सीधे बैंक खाते में",
+        "en": "A monthly pension, straight to the bank account"
+      },
+      "plainLanguage": {
+        "hi": "40% या उससे ज़्यादा दिव्यांगता वाले लोगों के लिए हर महीने की पेंशन। पहले सरकारी अस्पताल से दिव्यांगता प्रमाण पत्र बनवाना होता है।",
+        "en": "A monthly pension for people with 40% or more disability. A disability certificate from a government hospital is needed first."
+      },
+      "documents": [
+        "aadhaar",
+        "bank",
+        "disab",
+        "income"
+      ],
+      "eligibility": {
+        "hi": [
+          "दिव्यांगता 40% या ज़्यादा",
+          "सरकारी अस्पताल का प्रमाण पत्र",
+          "परिवार की आय तय सीमा से कम"
+        ],
+        "en": [
+          "Disability of 40% or more",
+          "Certificate from a government hospital",
+          "Family income below the notified limit"
+        ]
+      },
+      "signedBy": {
+        "hi": "जिला समाज कल्याण अधिकारी (DSWO)",
+        "en": "District Social Welfare Officer (DSWO)"
+      },
+      "appealTo": {
+        "hi": "मुख्य विकास अधिकारी (CDO)",
+        "en": "Chief Development Officer (CDO)"
+      },
+      "validity": {
+        "hi": "हर साल सत्यापन",
+        "en": "Yearly verification"
+      },
+      "applyAt": "block",
+      "officialUrl": "https://socialwelfare.uk.gov.in/",
+      "phone": null,
+      "provenance": "known",
+      "matchTerms": [
+        "दिव्यांग पेंशन",
+        "विकलांग पेंशन",
+        "disability pension",
+        "divyang pension",
+        "handicap pension",
+        "दिव्यांगता",
+        "pension",
+        "पेंशन"
+      ],
+      "situationTerms": [
+        "दिव्यांग",
+        "विकलांग",
+        "disabled",
+        "handicapped",
+        "disability",
+        "चल नहीं सकते",
+        "देख नहीं सकते",
+        "अपंग",
+        "लंगड़ु",
+        "दिव्यांग च",
+        "अपाहिज"
+      ]
+    },
+    {
+      "id": "nanda-gaura",
+      "name": {
+        "hi": "नंदा गौरा योजना",
+        "en": "Nanda Gaura Scheme"
+      },
+      "department": {
+        "hi": "महिला सशक्तिकरण एवं बाल विकास",
+        "en": "Women Empowerment & Child Development"
+      },
+      "feeRupees": 0,
+      "slaWorkingDays": 30,
+      "rtsGuaranteed": true,
+      "benefit": {
+        "hi": "बेटी के जन्म पर ₹11,000 और 12वीं पास करने पर ₹51,000",
+        "en": "₹11,000 at a girl's birth and ₹51,000 on passing Class 12"
+      },
+      "plainLanguage": {
+        "hi": "बेटी के जन्म पर और 12वीं पास करने पर सरकार सीधे पैसे देती है, ताकि आगे की पढ़ाई न रुके। पैसा बेटी के अपने बैंक खाते में आता है।",
+        "en": "The state pays money directly at a girl's birth and again when she passes Class 12, so her studies do not stop. It goes into the girl's own bank account."
+      },
+      "documents": [
+        "aadhaar",
+        "twelfth",
+        "income",
+        "bank",
+        "affidavit"
+      ],
+      "eligibility": {
+        "hi": [
+          "बेटी ने उत्तराखंड से 12वीं पास की हो",
+          "परिवार की सालाना आय तय सीमा से कम",
+          "आवेदन के समय अविवाहित"
+        ],
+        "en": [
+          "The girl passed Class 12 from Uttarakhand",
+          "Family yearly income below the notified limit",
+          "Unmarried at the time of applying"
+        ]
+      },
+      "signedBy": {
+        "hi": "जिला कार्यक्रम अधिकारी (DPO)",
+        "en": "District Programme Officer (DPO)"
+      },
+      "appealTo": {
+        "hi": "मुख्य विकास अधिकारी (CDO)",
+        "en": "Chief Development Officer (CDO)"
+      },
+      "validity": {
+        "hi": "एक बार का लाभ",
+        "en": "One-time benefit"
+      },
+      "applyAt": "block",
+      "officialUrl": "https://wecd.uk.gov.in/",
+      "phone": null,
+      "provenance": "known",
+      "matchTerms": [
+        "नंदा गौरा",
+        "गौरा देवी",
+        "कन्याधन",
+        "नंदा देवी",
+        "nanda gaura",
+        "gaura devi",
+        "kanyadhan",
+        "girl child scheme"
+      ],
+      "situationTerms": [
+        "बेटी",
+        "लड़की",
+        "daughter",
+        "girl",
+        "12वीं पास",
+        "passed 12th",
+        "कॉलेज की फीस",
+        "college fee",
+        "बेटी की पढ़ाई",
+        "beti ki padhai",
+        "daughter studies",
+        "बेटी की शिक्षा",
+        "girl education help",
+        "बेटी के लिए मदद",
+        "नौनी",
+        "नौनि",
+        "चेली",
+        "चेलि",
+        "नौनी की पढ़ै",
+        "चेली कि पढ़ाई",
+        "नौनी कु पढ़ै",
+        "चेली कि पढ़ै",
+        "बेटि",
+        "लौंडिया"
+      ]
+    },
+    {
+      "id": "msy",
+      "name": {
+        "hi": "मुख्यमंत्री स्वरोजगार योजना (MSY)",
+        "en": "Mukhyamantri Swarojgar Yojana (MSY)"
+      },
+      "department": {
+        "hi": "उद्योग विभाग (MSME)",
+        "en": "MSME & Industries Department"
+      },
+      "feeRupees": 0,
+      "slaWorkingDays": 20,
+      "rtsGuaranteed": true,
+      "benefit": {
+        "hi": "बैंक से ₹25 लाख तक का लोन, जिसमें 15% से 25% सरकार की सब्सिडी",
+        "en": "A bank loan up to ₹25 lakh, with 15%–25% government subsidy"
+      },
+      "plainLanguage": {
+        "hi": "अपना काम शुरू करने के लिए — दुकान, होमस्टे, डेयरी, छोटा उद्योग। बैंक लोन देता है और सरकार उसका एक हिस्सा सब्सिडी के तौर पर माफ़ करती है। पहाड़ी ज़िलों में सब्सिडी ज़्यादा है।",
+        "en": "For starting your own work — a shop, homestay, dairy, small unit. The bank gives the loan and the government writes off a part as subsidy. Hill districts get the higher rate."
+      },
+      "documents": [
+        "aadhaar",
+        "domicile",
+        "dpr",
+        "marks",
+        "bank"
+      ],
+      "eligibility": {
+        "hi": [
+          "उत्तराखंड का स्थाई निवासी",
+          "उम्र आमतौर पर 18 साल से ऊपर",
+          "किसी बैंक का डिफॉल्टर न हो"
+        ],
+        "en": [
+          "Permanent resident of Uttarakhand",
+          "Usually above 18 years of age",
+          "Not a defaulter with any bank"
+        ]
+      },
+      "signedBy": {
+        "hi": "महाप्रबंधक, जिला उद्योग केंद्र (DIC)",
+        "en": "General Manager, District Industries Centre (DIC)"
+      },
+      "appealTo": {
+        "hi": "निदेशक, उद्योग निदेशालय",
+        "en": "Director, Directorate of Industries"
+      },
+      "validity": {
+        "hi": "लोन मंज़ूरी तक",
+        "en": "Until loan sanction"
+      },
+      "applyAt": "dic",
+      "officialUrl": "https://msy.uk.gov.in/",
+      "phone": null,
+      "provenance": "known",
+      "matchTerms": [
+        "स्वरोजगार",
+        "मुख्यमंत्री स्वरोजगार",
+        "msy",
+        "swarojgar",
+        "self employment",
+        "business loan",
+        "homestay loan",
+        "दुकान खोलनी",
+        "बिज़नेस लोन",
+        "अपना काम",
+        "dukan kholni",
+        "apna kaam",
+        "dukan kholni hai",
+        "business shuru"
+      ],
+      "situationTerms": [
+        "नौकरी चली गई",
+        "बेरोज़गार",
+        "lost job",
+        "unemployed",
+        "start business",
+        "दुकान",
+        "होमस्टे",
+        "डेयरी",
+        "shop",
+        "startup",
+        "lost my job",
+        "job is gone",
+        "job gone",
+        "no work",
+        "बेरोजगार",
+        "open a shop",
+        "start a shop",
+        "dukan",
+        "homestay",
+        "dairy",
+        "naukri chali gayi",
+        "काम नहीं है",
+        "रोज़गार",
+        "rozgar",
+        "loan for business",
+        "रोजगार नि",
+        "काम नि",
+        "काम नैं",
+        "नौकरी नि रैगे",
+        "दुकान खोलण",
+        "दुकान खोल्ण",
+        "अपणु काम",
+        "होमस्टे खोलण",
+        "गोठ",
+        "डेरी कु काम"
+      ]
+    },
+    {
+      "id": "ayushman",
+      "name": {
+        "hi": "अटल आयुष्मान उत्तराखंड योजना",
+        "en": "Atal Ayushman Uttarakhand Yojana"
+      },
+      "department": {
+        "hi": "चिकित्सा स्वास्थ्य विभाग",
+        "en": "Medical Health & Family Welfare"
+      },
+      "feeRupees": 0,
+      "slaWorkingDays": 1,
+      "rtsGuaranteed": true,
+      "benefit": {
+        "hi": "हर परिवार को साल में ₹5 लाख तक का मुफ़्त इलाज",
+        "en": "Up to ₹5 lakh of free treatment per family per year"
+      },
+      "plainLanguage": {
+        "hi": "भर्ती होकर इलाज कराने पर पैसे नहीं देने पड़ते — सरकार सीधे अस्पताल को देती है। कार्ड मुफ़्त बनता है और आमतौर पर उसी दिन मिल जाता है।",
+        "en": "You pay nothing for hospital treatment — the state pays the hospital directly. The card is free and is usually issued the same day."
+      },
+      "documents": [
+        "ration",
+        "aadhaar"
+      ],
+      "eligibility": {
+        "hi": [
+          "उत्तराखंड का निवासी परिवार",
+          "राशन कार्ड में नाम दर्ज हो"
+        ],
+        "en": [
+          "A family resident in Uttarakhand",
+          "Name listed on the ration card"
+        ]
+      },
+      "signedBy": {
+        "hi": "राज्य स्वास्थ्य प्राधिकरण (SHA)",
+        "en": "State Health Authority (SHA)"
+      },
+      "appealTo": {
+        "hi": "मुख्य चिकित्सा अधिकारी (CMO)",
+        "en": "Chief Medical Officer (CMO)"
+      },
+      "validity": {
+        "hi": "हर साल नवीनीकरण",
+        "en": "Renewed yearly"
+      },
+      "applyAt": "hospital",
+      "officialUrl": "https://ayushmanuttarakhand.org/",
+      "phone": null,
+      "provenance": "known",
+      "matchTerms": [
+        "आयुष्मान",
+        "अटल आयुष्मान",
+        "गोल्डन कार्ड",
+        "ayushman",
+        "golden card",
+        "health card",
+        "मुफ्त इलाज",
+        "free treatment"
+      ],
+      "situationTerms": [
+        "अस्पताल",
+        "इलाज",
+        "ऑपरेशन",
+        "बीमारी",
+        "hospital",
+        "surgery",
+        "medical bill",
+        "treatment cost",
+        "दवा का खर्च",
+        "hospital bill",
+        "इलाज का खर्च",
+        "operation ka kharcha",
+        "ilaj",
+        "admit",
+        "भर्ती करना",
+        "cannot afford treatment",
+        "पैसे नहीं इलाज",
+        "बीमार",
+        "बिमार",
+        "बीमारि",
+        "दवै",
+        "दवाई कु खर्च",
+        "अस्पताल जाण",
+        "इलाज कु पैसा",
+        "ऑपरेशन कु खर्च"
+      ]
+    },
+    {
+      "id": "ration",
+      "name": {
+        "hi": "राशन कार्ड (नया / सुधार)",
+        "en": "Ration Card (new / correction)"
+      },
+      "department": {
+        "hi": "खाद्य एवं नागरिक आपूर्ति विभाग",
+        "en": "Food & Civil Supplies Department"
+      },
+      "feeRupees": 0,
+      "slaWorkingDays": 30,
+      "rtsGuaranteed": true,
+      "benefit": {
+        "hi": "सस्ता अनाज हर महीने, और आयुष्मान कार्ड इसी से बनता है",
+        "en": "Subsidised grain every month, and the Ayushman card runs off it"
+      },
+      "plainLanguage": {
+        "hi": "राशन कार्ड से हर महीने सस्ता अनाज मिलता है। यह सिर्फ़ अनाज के लिए नहीं — आयुष्मान कार्ड, छात्रवृत्ति और कई योजनाओं में परिवार का सबूत यही बनता है।",
+        "en": "A ration card gets you subsidised grain every month. It is not only for grain — it is also the family proof used for the Ayushman card, scholarships and many schemes."
+      },
+      "documents": [
+        "aadhaar",
+        "photo",
+        "pariwar",
+        "bank"
+      ],
+      "eligibility": {
+        "hi": [
+          "उत्तराखंड का निवासी परिवार",
+          "किसी और राज्य में राशन कार्ड न हो"
+        ],
+        "en": [
+          "A family resident in Uttarakhand",
+          "No ration card in another state"
+        ]
+      },
+      "signedBy": {
+        "hi": "क्षेत्रीय खाद्य अधिकारी / पूर्ति निरीक्षक",
+        "en": "Regional Food Officer / Supply Inspector"
+      },
+      "appealTo": {
+        "hi": "जिला पूर्ति अधिकारी (DSO)",
+        "en": "District Supply Officer (DSO)"
+      },
+      "validity": {
+        "hi": "नवीनीकरण पर",
+        "en": "Until renewal"
+      },
+      "applyAt": "csc",
+      "officialUrl": "https://fcs.uk.gov.in/",
+      "phone": null,
+      "provenance": "known",
+      "matchTerms": [
+        "राशन कार्ड",
+        "ration card",
+        "ration",
+        "राशन",
+        "खाद्य सुरक्षा",
+        "food security card",
+        "नया राशन कार्ड",
+        "यूनिट जुड़वानी",
+        "apl",
+        "bpl",
+        "nfsa"
+      ],
+      "situationTerms": [
+        "सस्ता अनाज",
+        "गेहूँ चावल",
+        "राशन नहीं मिल रहा",
+        "नाम जुड़वाना",
+        "add name in ration",
+        "cheap grain",
+        "subsidised food"
+      ]
+    },
+    {
+      "id": "kisan",
+      "name": {
+        "hi": "किसान क्रेडिट कार्ड एवं पीएम-किसान",
+        "en": "Kisan Credit Card & PM-KISAN"
+      },
+      "department": {
+        "hi": "कृषि विभाग",
+        "en": "Agriculture Department"
+      },
+      "feeRupees": 0,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": true,
+      "benefit": {
+        "hi": "खेती के लिए सस्ता लोन (4% ब्याज तक), और पीएम-किसान से साल में ₹6,000",
+        "en": "Cheap crop loan (interest as low as 4%), plus ₹6,000 a year under PM-KISAN"
+      },
+      "plainLanguage": {
+        "hi": "खेती के लिए बीज, खाद और मज़दूरी का खर्च उठाने को सस्ता बैंक लोन। साथ में पीएम-किसान से साल के ₹6,000 सीधे खाते में तीन किस्तों में आते हैं।",
+        "en": "A cheap bank loan for seed, fertiliser and labour costs. Alongside it, PM-KISAN pays ₹6,000 a year straight into the account in three instalments."
+      },
+      "documents": [
+        "aadhaar",
+        "khatauni",
+        "bank",
+        "photo"
+      ],
+      "eligibility": {
+        "hi": [
+          "अपने नाम या परिवार के नाम खेती की ज़मीन",
+          "बैंक खाता आधार से जुड़ा हो"
+        ],
+        "en": [
+          "Farm land in your own or family name",
+          "Bank account linked to Aadhaar"
+        ]
+      },
+      "signedBy": {
+        "hi": "बैंक शाखा प्रबंधक / कृषि अधिकारी",
+        "en": "Bank Branch Manager / Agriculture Officer"
+      },
+      "appealTo": {
+        "hi": "मुख्य कृषि अधिकारी (CAO)",
+        "en": "Chief Agriculture Officer (CAO)"
+      },
+      "validity": {
+        "hi": "5 साल, हर साल नवीनीकरण",
+        "en": "5 years, renewed annually"
+      },
+      "applyAt": "block",
+      "officialUrl": "https://pmkisan.gov.in/",
+      "phone": null,
+      "provenance": "known",
+      "matchTerms": [
+        "किसान क्रेडिट कार्ड",
+        "kcc",
+        "kisan credit card",
+        "पीएम किसान",
+        "pm kisan",
+        "pm-kisan",
+        "खेती का लोन",
+        "farmer loan",
+        "crop loan",
+        "किसान लोन",
+        "kisan samman nidhi"
+      ],
+      "situationTerms": [
+        "खेती",
+        "फसल",
+        "बीज खाद",
+        "farming",
+        "crop",
+        "खेत",
+        "किसान",
+        "farmer",
+        "agriculture help"
+      ]
+    },
+    {
+      "id": "helpline-1905",
+      "name": {
+        "hi": "मुख्यमंत्री हेल्पलाइन 1905",
+        "en": "CM Helpline 1905"
+      },
+      "department": {
+        "hi": "मुख्यमंत्री कार्यालय एवं ITDA",
+        "en": "Chief Minister's Office & ITDA"
+      },
+      "feeRupees": 0,
+      "slaWorkingDays": 7,
+      "rtsGuaranteed": true,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "पानी, बिजली, सड़क, राशन, सफाई — किसी भी सरकारी विभाग की शिकायत। बस 1905 डायल कीजिए। कोई कागज़ नहीं चाहिए, सिर्फ़ आपका मोबाइल नंबर।",
+        "en": "Water, electricity, roads, ration, sanitation — a complaint about any government department. Just dial 1905. No documents needed, only your mobile number."
+      },
+      "documents": [
+        "mobile"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "नोडल अधिकारी एवं जिलाधिकारी",
+        "en": "Nodal Officer and District Magistrate"
+      },
+      "appealTo": {
+        "hi": "मुख्यमंत्री कार्यालय",
+        "en": "Chief Minister's Office"
+      },
+      "validity": {
+        "hi": "—",
+        "en": "—"
+      },
+      "applyAt": "phone",
+      "officialUrl": "https://cmhelpline.uk.gov.in/",
+      "phone": "1905",
+      "provenance": "known",
+      "matchTerms": [
+        "शिकायत",
+        "हेल्पलाइन",
+        "1905",
+        "complaint",
+        "grievance",
+        "helpline",
+        "शिकायत दर्ज"
+      ],
+      "situationTerms": [
+        "पानी नहीं आ रहा",
+        "पाइप टूटी",
+        "बिजली नहीं",
+        "सड़क खराब",
+        "गड्ढा",
+        "कचरा",
+        "अधिकारी नहीं सुन रहा",
+        "no water",
+        "broken pipe",
+        "no electricity",
+        "pothole",
+        "garbage",
+        "road bad",
+        "रिश्वत माँगी",
+        "पाणि",
+        "पाणी",
+        "पाणि नि आणु",
+        "पाणि नैं आ रौ",
+        "बिजली नि आणि",
+        "बत्ती नि आणि",
+        "बाटु",
+        "बाट",
+        "बाटु खराब",
+        "बाट खराब",
+        "नाली",
+        "कूड़ा",
+        "सफै",
+        "शिकैत",
+        "शिकायत करण"
+      ]
+    },
+    {
+      "id": "efir",
+      "name": {
+        "hi": "ऑनलाइन FIR / खोई वस्तु की रिपोर्ट",
+        "en": "Online FIR / Lost Article Report"
+      },
+      "department": {
+        "hi": "गृह विभाग (उत्तराखंड पुलिस)",
+        "en": "Home Department (Uttarakhand Police)"
+      },
+      "feeRupees": 0,
+      "slaWorkingDays": 1,
+      "rtsGuaranteed": false,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "मोबाइल, कागज़ या सामान खो जाए तो थाने जाए बिना ऑनलाइन रिपोर्ट दर्ज कीजिए। रसीद तुरंत मिल जाती है। पूरी तरह मुफ़्त है।",
+        "en": "If a phone, documents or belongings are lost, file the report online without going to the police station. The receipt is immediate. Completely free."
+      },
+      "documents": [
+        "aadhaar",
+        "mobile"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "थानाध्यक्ष (SHO)",
+        "en": "Station House Officer (SHO)"
+      },
+      "appealTo": {
+        "hi": "पुलिस अधीक्षक (SP)",
+        "en": "Superintendent of Police (SP)"
+      },
+      "validity": {
+        "hi": "—",
+        "en": "—"
+      },
+      "applyAt": "online",
+      "officialUrl": "https://uttarakhandpolice.uk.gov.in/",
+      "phone": null,
+      "provenance": "known",
+      "matchTerms": [
+        "fir",
+        "एफआईआर",
+        "पुलिस रिपोर्ट",
+        "खोया",
+        "चोरी",
+        "police complaint",
+        "lost phone",
+        "theft",
+        "stolen",
+        "lost documents"
+      ],
+      "situationTerms": [
+        "मोबाइल खो गया",
+        "phone lost",
+        "चोरी हो गई",
+        "कागज़ खो गए",
+        "mobile kho gaya",
+        "lost my phone",
+        "documents lost",
+        "पर्स खो गया",
+        "चोरी",
+        "मोबैल खोयि",
+        "फोन खोयि",
+        "चोरि ह्वे",
+        "सामान खोयु"
+      ]
+    },
+    {
+      "id": "dl",
+      "name": {
+        "hi": "ड्राइविंग लाइसेंस / लर्निंग लाइसेंस",
+        "en": "Driving Licence / Learner Licence"
+      },
+      "department": {
+        "hi": "परिवहन विभाग",
+        "en": "Transport Department"
+      },
+      "feeRupees": 200,
+      "slaWorkingDays": 15,
+      "rtsGuaranteed": false,
+      "benefit": null,
+      "plainLanguage": {
+        "hi": "पहले लर्निंग लाइसेंस बनता है (ऑनलाइन टेस्ट), फिर एक महीने बाद पक्का ड्राइविंग लाइसेंस। यह सेवा भारत सरकार के सारथी पोर्टल पर है।",
+        "en": "First a learner licence (online test), then the permanent driving licence a month later. This service runs on the central Sarathi portal."
+      },
+      "documents": [
+        "aadhaar",
+        "tenth",
+        "photo"
+      ],
+      "eligibility": {
+        "hi": [],
+        "en": []
+      },
+      "signedBy": {
+        "hi": "संभागीय परिवहन अधिकारी (RTO)",
+        "en": "Regional Transport Officer (RTO)"
+      },
+      "appealTo": {
+        "hi": "उप परिवहन आयुक्त",
+        "en": "Deputy Transport Commissioner"
+      },
+      "validity": {
+        "hi": "लर्निंग 6 महीने, DL 20 साल",
+        "en": "Learner 6 months, DL 20 years"
+      },
+      "applyAt": "online",
+      "officialUrl": "https://sarathi.parivahan.gov.in/",
+      "phone": null,
+      "provenance": "known",
+      "matchTerms": [
+        "ड्राइविंग लाइसेंस",
+        "लाइसेंस",
+        "लर्निंग",
+        "driving licence",
+        "driving license",
+        "learner licence",
+        "dl",
+        "rto",
+        "sarathi"
+      ],
+      "situationTerms": [
+        "गाड़ी चलाना",
+        "बाइक चलाना",
+        "drive car",
+        "ride bike"
+      ]
+    }
+  ],
+  "lifeEvents": [
+    {
+      "id": "sit-job",
+      "icon": "💼",
+      "routesTo": "msy",
+      "prompt": {
+        "hi": "नौकरी चली गई, अपना काम शुरू करना है",
+        "en": "Lost my job, want to start my own work"
+      },
+      "answer": {
+        "hi": "अपना काम शुरू करने के लिए सरकार बैंक लोन दिलाती है और उसका 15% से 25% हिस्सा सब्सिडी में माफ़ कर देती है। पहाड़ी ज़िलों में सब्सिडी ज़्यादा मिलती है।",
+        "en": "To start your own work the state arranges a bank loan and writes off 15%–25% of it as subsidy. Hill districts get the higher rate."
+      }
+    },
+    {
+      "id": "sit-daughter",
+      "icon": "👧",
+      "routesTo": "nanda-gaura",
+      "prompt": {
+        "hi": "बेटी ने 12वीं पास की, आगे की पढ़ाई का खर्च",
+        "en": "Daughter passed Class 12, need help with her studies"
+      },
+      "answer": {
+        "hi": "बेटी के 12वीं पास करने पर सरकार सीधे ₹51,000 उसके अपने बैंक खाते में देती है। आवेदन मुफ़्त है।",
+        "en": "When a girl passes Class 12 the state pays ₹51,000 straight into her own bank account. Applying is free."
+      }
+    },
+    {
+      "id": "sit-elder",
+      "icon": "👴",
+      "routesTo": "pension-old",
+      "prompt": {
+        "hi": "घर में कोई बुज़ुर्ग है, पेंशन चाहिए",
+        "en": "Someone elderly at home, need a pension"
+      },
+      "answer": {
+        "hi": "60 साल से ऊपर के बुज़ुर्गों को हर महीने ₹1,500 पेंशन मिलती है, सीधे बैंक खाते में। आवेदन पूरी तरह मुफ़्त है — किसी को पैसे मत दीजिए।",
+        "en": "People above 60 get ₹1,500 every month straight into the bank account. Applying is completely free — do not pay anyone."
+      }
+    },
+    {
+      "id": "sit-widow",
+      "icon": "🤍",
+      "routesTo": "pension-widow",
+      "prompt": {
+        "hi": "पति नहीं रहे, गुज़ारे के लिए मदद चाहिए",
+        "en": "Husband has passed away, need support"
+      },
+      "answer": {
+        "hi": "विधवा पेंशन एक अलग योजना है और उम्र 60 से कम होने पर भी मिल सकती है। इसके लिए पति का मृत्यु प्रमाण पत्र ज़रूरी है।",
+        "en": "Widow pension is a separate scheme and can apply even below age 60. The husband's death certificate is required."
+      }
+    },
+    {
+      "id": "sit-hospital",
+      "icon": "🏥",
+      "routesTo": "ayushman",
+      "prompt": {
+        "hi": "इलाज का खर्च नहीं उठा पा रहे",
+        "en": "Cannot afford medical treatment"
+      },
+      "answer": {
+        "hi": "अटल आयुष्मान कार्ड से साल में ₹5 लाख तक का इलाज मुफ़्त होता है। कार्ड मुफ़्त बनता है — बस राशन कार्ड और आधार चाहिए।",
+        "en": "The Atal Ayushman card covers up to ₹5 lakh of treatment a year, free. The card itself is free — you only need a ration card and Aadhaar."
+      }
+    },
+    {
+      "id": "sit-complaint",
+      "icon": "📣",
+      "routesTo": "helpline-1905",
+      "prompt": {
+        "hi": "पानी, बिजली या सड़क की शिकायत करनी है",
+        "en": "Want to complain about water, power or roads"
+      },
+      "answer": {
+        "hi": "1905 पर फोन कीजिए। कोई कागज़ नहीं चाहिए, कोई फीस नहीं। शिकायत सीधे मुख्यमंत्री कार्यालय की निगरानी में जाती है और 7 दिन में निपटानी होती है।",
+        "en": "Dial 1905. No documents, no fee. The complaint goes under the Chief Minister's Office watch and must be settled in 7 days."
+      }
+    },
+    {
+      "id": "sit-scholarship",
+      "icon": "🎓",
+      "routesTo": "income",
+      "prompt": {
+        "hi": "बच्चे की छात्रवृत्ति का फॉर्म भरना है",
+        "en": "Need to fill a scholarship form for my child"
+      },
+      "answer": {
+        "hi": "छात्रवृत्ति के लिए सबसे पहले आय प्रमाण पत्र चाहिए, और अगर SC/ST/OBC हैं तो जाति प्रमाण पत्र भी। दोनों तहसील से ₹40 में 15 दिन के अंदर बनते हैं।",
+        "en": "A scholarship needs an income certificate first, and a caste certificate too if you are SC/ST/OBC. Both come from the tehsil at ₹40 within 15 days."
+      }
+    },
+    {
+      "id": "sit-newborn",
+      "icon": "👶",
+      "routesTo": "birth",
+      "prompt": {
+        "hi": "घर में बच्चा हुआ है",
+        "en": "A baby has been born at home"
+      },
+      "answer": {
+        "hi": "जन्म के 21 दिन के अंदर जन्म प्रमाण पत्र मुफ़्त बनता है। देर होने पर फीस और कागज़ी काम दोनों बढ़ जाते हैं — इसलिए जल्दी बनवा लीजिए।",
+        "en": "A birth certificate is free if registered within 21 days. Delay adds both a fee and paperwork — so do it early."
+      }
+    },
+    {
+      "id": "sit-death",
+      "icon": "🕯️",
+      "routesTo": "death",
+      "prompt": {
+        "hi": "परिवार में किसी की मृत्यु हुई है",
+        "en": "Someone in the family has passed away"
+      },
+      "answer": {
+        "hi": "सबसे पहले मृत्यु प्रमाण पत्र बनवाइए — 21 दिन के अंदर मुफ़्त है। उसके बाद बैंक, बीमा, पेंशन और ज़मीन के नाम बदलने के लिए उत्तरजीवी प्रमाण पत्र लगेगा।",
+        "en": "Get the death certificate first — free within 21 days. After that a survivor certificate is needed for bank, insurance, pension and land transfer."
+      }
+    },
+    {
+      "id": "sit-job-apply",
+      "icon": "📝",
+      "routesTo": "domicile",
+      "prompt": {
+        "hi": "सरकारी नौकरी का फॉर्म भरना है",
+        "en": "Applying for a government job"
+      },
+      "answer": {
+        "hi": "राज्य की भर्ती के लिए मूल निवास प्रमाण पत्र चाहिए, और आरक्षण का दावा कर रहे हैं तो जाति प्रमाण पत्र भी। दोनों ₹40 में 15 दिन के अंदर।",
+        "en": "State recruitment needs a domicile certificate, and a caste certificate too if you are claiming reservation. Both ₹40, within 15 days."
+      }
+    },
+    {
+      "id": "sit-lost",
+      "icon": "📱",
+      "routesTo": "efir",
+      "prompt": {
+        "hi": "मोबाइल या कागज़ खो गए हैं",
+        "en": "Phone or documents are lost"
+      },
+      "answer": {
+        "hi": "थाने जाने की ज़रूरत नहीं — ऑनलाइन रिपोर्ट दर्ज कीजिए और रसीद तुरंत मिल जाएगी। यह मुफ़्त है और नया सिम या डुप्लीकेट कागज़ लेने में यही रसीद काम आती है।",
+        "en": "No need to visit the station — file online and the receipt is immediate. It is free, and that receipt is what you need for a new SIM or duplicate documents."
+      }
+    },
+    {
+      "id": "sit-divyang",
+      "icon": "♿",
+      "routesTo": "pension-divyang",
+      "prompt": {
+        "hi": "घर में कोई दिव्यांग है",
+        "en": "Someone at home has a disability"
+      },
+      "answer": {
+        "hi": "40% या ज़्यादा दिव्यांगता पर हर महीने पेंशन मिलती है। पहले सरकारी अस्पताल से दिव्यांगता प्रमाण पत्र बनवाना होगा — वह भी मुफ़्त है।",
+        "en": "A disability of 40% or more qualifies for a monthly pension. The disability certificate from a government hospital comes first — that is free too."
+      }
+    }
+  ]
+}

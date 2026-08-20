@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>सभी सेवाएं | All Services · Government of Uttarakhand</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div id="site-govstrip"></div>
+<div id="site-masthead"></div>
+<div id="site-navbar"></div>
+<nav id="site-breadcrumb"></nav>
+
+<div class="layout">
+  <aside class="sidebar" id="site-sidebar"></aside>
+
+  <main id="main">
+    <div class="page-head">
+      <h1 id="page-title"></h1>
+      <p id="page-sub"></p>
+    </div>
+
+    <!-- Search -->
+    <section class="card">
+      <div class="field-row">
+        <div>
+          <label for="q" class="sr-only">Search</label>
+          <input type="search" id="q" autocomplete="off">
+        </div>
+        <button class="btn btn-icon" id="btn-mic-search" type="button" title="Search by voice"></button>
+      </div>
+      <div id="search-live" class="small muted" style="margin-top:.5rem;min-height:1.2rem" aria-live="polite"></div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem" id="dept-filters"></div>
+    </section>
+
+    <!-- Detail panel -->
+    <section id="detail" hidden style="margin-top:1.5rem"></section>
+
+    <!-- Results -->
+    <section class="section">
+      <div class="section-head">
+        <h2 id="results-title"></h2>
+        <span class="sub" id="results-count"></span>
+      </div>
+      <div class="grid grid-3" id="results"></div>
+      <div class="card" id="empty" hidden></div>
+    </section>
+  </main>
+</div>
+
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/icons.js"></script>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/nlu.js"></script>
+<script src="../assets/js/voice-engine.js"></script>
+<script src="../assets/js/digilocker.js"></script>
+<script src="../assets/js/agent.js"></script>
+<script src="../assets/js/app.js"></script>

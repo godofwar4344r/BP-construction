@@ -1,0 +1,24 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "axiom",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 5173
+    },
+    {
+      "name": "rebuild-gov",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["rebuild-gov/server/server.js"],
+      "port": 8080,
+      "autoPort": true
+    },
+    {
+      "name": "ek-sawal",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["ek-sawal/server.js"],
+      "port": 8090
+    }
+  ]
+}

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>आवाज़ से आवेदन | Apply by Voice · Apuni Sarkar</title>
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<div id="site-govstrip"></div>
+<div id="site-masthead"></div>
+<div id="site-navbar"></div>
+<nav id="site-breadcrumb"></nav>
+
+<div class="layout">
+  <aside class="sidebar" id="site-sidebar"></aside>
+
+  <main id="main">
+
+    <div id="no-speech-banner" class="banner" hidden></div>
+
+    <!-- ================= Service picker ================================= -->
+    <section id="picker">
+      <div class="page-head">
+        <h1 id="picker-title"></h1>
+        <p id="picker-sub"></p>
+      </div>
+      <div class="grid grid-3" id="picker-grid"></div>
+      <p style="margin-top:1.5rem"><a href="services.html" id="picker-all"></a></p>
+    </section>
+
+    <!-- ================= Application workspace ========================== -->
+    <section id="workspace" hidden>
+
+      <div class="card" style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+        <span class="svc-icon" style="width:46px;height:46px;flex:none" id="svc-icon"></span>
+        <div style="flex:1;min-width:200px">
+          <h1 style="font-size:1.25rem;margin:0" id="svc-name"></h1>
+          <div class="small muted" id="svc-name-alt"></div>
+        </div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap" id="svc-pills"></div>
+        <button class="btn btn-ghost btn-sm" id="btn-change"></button>
+      </div>
+
+      <div class="grid" style="grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1.25rem;margin-top:1.25rem" id="ws-grid">
+
+        <!-- ---- left: the live form ---- -->
+        <div class="card">
+          <div class="card-head">
+            <h2 id="form-title"></h2>
+            <span class="pill pill-blue" id="progress-label">0%</span>
+          </div>
+          <div class="progress-track" style="margin-bottom:1.1rem">
+            <div class="progress-fill" id="progress" style="width:0%"></div>
+          </div>
+
+          <div class="vform" id="vform"></div>
+          <p class="tiny muted" style="margin-top:.6rem" id="edit-hint"></p>
+
+          <div id="submit-row" style="margin-top:1.25rem;display:none;gap:.6rem;flex-wrap:wrap">
+            <button class="btn btn-green btn-lg" id="btn-submit"></button>
+            <button class="btn btn-ghost" id="btn-edit"></button>
+          </div>
+
+          <div id="receipt" hidden style="margin-top:1.25rem"></div>
+        </div>
+
+        <!-- ---- right: mic, conversation, locker ---- -->
+        <div>
+          <div class="card" style="text-align:center">
+            <div class="mic-wrap" id="mic-wrap">
+              <button class="mic-btn" id="mic-btn" type="button" style="width:96px;height:96px"></button>
+            </div>
+            <div class="mic-status" id="mic-status" role="status" aria-live="polite"></div>
+            <div class="small muted" id="transcript-live" style="min-height:1.4rem"></div>
+
+            <div class="field-row" style="margin-top:1rem">
+              <input type="text" id="type-input" autocomplete="off" aria-label="Type your answer">
+              <button class="btn" id="btn-send"></button>
+            </div>
+            <div class="tiny muted" style="margin-top:.6rem" id="kbd-hint"></div>
+          </div>
+
+          <div class="card" style="margin-top:1.25rem">
+            <div class="card-head"><h2 style="font-size:1rem" id="convo-title"></h2></div>
+            <div class="convo" id="convo" style="max-height:270px"></div>
+          </div>
+
+          <div class="card" style="margin-top:1.25rem" id="locker-card" hidden>
+            <div class="card-head">
+              <h2 style="font-size:1rem" id="locker-title"></h2>
+              <span class="pill pill-green" id="locker-status"></span>
+            </div>
+            <div id="locker-docs"></div>
+            <div id="manual-docs" style="margin-top:1rem"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer id="site-footer"></footer>
+
+<script src="../assets/js/icons.js"></script>
+<script src="../assets/js/store.js"></script>
+<script src="../assets/js/nlu.js"></script>
+<script src="../assets/js/voice-engine.js"></script>
+<script src="../assets/js/digilocker.js"></script>
+<script src="../assets/js/agent.js"></script>
+<script src="../assets/js/app.js"></script>
+<script>
+(function () {
+  'use strict';
+
+  var micBtn, micWrap, micStatus, transcriptLive, convoEl, hi;
+
+  App.init({ base: '../', page: 'apply' }).then(function () {
+    hi = Store.lang === 'hi';
+
+    micBtn = document.getElementById('mic-btn');
+    micWrap = document.getElementById('mic-wrap');
+    micStatus = document.getElementById('mic-status');
+    transcriptLive = document.getElementById('transcript-live');
+    convoEl = document.getElementById('convo');
+
+    Voice.init({ provider: 'webspeech', lang: Store.lang });
+
+    labels();
+    wireVoice();
+    wireAgent();
+    wireControls();
+    checkSupport();
+
+    var slug = App.param('svc');
+    var svc = slug ? Store.service(slug) : null;
+
+    if (svc && svc.voiceForm && svc.voiceForm.length) openService(svc);
+    else renderPicker();
+  });
+
+  function labels() {
+    document.getElementById('picker-title').textContent = hi ? 'आवाज़ से आवेदन करें' : 'Apply by voice';
+    document.getElementById('picker-sub').textContent = hi
+      ? 'नीचे से कोई सेवा चुनिए। फिर बस बोलिए — फ़ॉर्म हम भर देंगे और दस्तावेज़ डिजिलॉकर से खुद ले लेंगे।'
+      : 'Pick a service below. Then just speak — we fill the form and pull your documents from DigiLocker.';
+    document.getElementById('picker-all').innerHTML =
+      (hi ? 'सभी सेवाएं देखें' : 'Browse all services') + ' ' + App.icon('arrowRight', 14);
+
+    document.getElementById('btn-change').innerHTML =
+      App.icon('grid', 14) + (hi ? 'सेवा बदलें' : 'Change service');
+    document.getElementById('form-title').textContent = hi ? 'आवेदन पत्र' : 'Application form';
+    document.getElementById('convo-title').textContent = hi ? 'बातचीत' : 'Conversation';
+    document.getElementById('locker-title').textContent = hi ? 'डिजिलॉकर दस्तावेज़' : 'DigiLocker documents';
+    document.getElementById('btn-send').textContent = Store.t('send');
+    document.getElementById('btn-submit').innerHTML = App.icon('check', 17) + Store.t('submit');
+    document.getElementById('btn-edit').textContent = hi ? 'कुछ बदलना है' : 'Change something';
+    document.getElementById('type-input').placeholder = Store.t('typeInstead');
+    document.getElementById('edit-hint').textContent = hi
+      ? 'किसी भरी हुई पंक्ति पर क्लिक करके उसे बदला जा सकता है।'
+      : 'Click any filled row to change it.';
+
+    micBtn.innerHTML = App.icon('mic', 38);
+    micBtn.setAttribute('aria-label', Store.t('tapToSpeak'));
+    micStatus.textContent = Store.t('tapToSpeak');
+    document.getElementById('kbd-hint').textContent = hi
+      ? 'स्पेस बार दबा कर भी बोल सकते हैं'
+      : 'You can also press the space bar to speak';
+  }
+
+  function checkSupport() {
+    if (!Voice.capabilities().stt) {
+      var b = document.getElementById('no-speech-banner');
+      b.hidden = false;
+      b.innerHTML = App.icon('alert', 18) + '<span>' + Store.t('noSpeech') + '</span>';
+    }
+  }
+
+  /* ---------------------------------------------------------------- picker */
+
+  function renderPicker() {
+    document.getElementById('picker').hidden = false;
+    document.getElementById('workspace').hidden = true;
+
+    var grid = document.getElementById('picker-grid');
+    grid.innerHTML = '';
+    Store.voiceReadyServices().forEach(function (svc) {
+      grid.appendChild(App.serviceCard(svc, openService));
+    });
+  }
+
+  /* ------------------------------------------------------------- workspace */
+
+  function openService(svc) {
+    document.getElementById('picker').hidden = true;
+    document.getElementById('workspace').hidden = false;
+
+    document.getElementById('svc-icon').innerHTML = Icons.forService(svc, 24);
+    document.getElementById('svc-name').textContent = hi ? svc.hi : svc.en;
+    document.getElementById('svc-name-alt').textContent =
+      (hi ? svc.en : svc.hi) + ' · ' + (hi ? svc.deptHi : svc.deptEn);
+
+    document.getElementById('svc-pills').innerHTML =
+      '<span class="pill">' + Store.t('fee') + ': ' +
+        (svc.charge ? '₹' + svc.charge : Store.t('free')) + '</span>' +
+      (svc.days ? '<span class="pill">' + App.icon('clock', 12) + svc.days + ' ' +
+        Store.t('days') + '</span>' : '') +
+      (svc.rts ? '<span class="pill pill-green">' + App.icon('check', 12) + 'RTS</span>' : '');
+
+    renderManualDocs(svc);
+
+    convoEl.innerHTML = '';
+    document.getElementById('locker-docs').innerHTML = '';
+    document.getElementById('receipt').hidden = true;
+    document.getElementById('submit-row').style.display = 'none';
+
+    Agent.autoListen = true;
+    Agent.startService(svc);
+  }
+
+  function renderManualDocs(svc) {
+    var manual = DigiLocker.manualDocs(svc);
+    var gen = DigiLocker.generatedDocs(svc);
+    var el = document.getElementById('manual-docs');
+
+    if (!manual.length && !gen.length) { el.innerHTML = ''; return; }
+
+    el.innerHTML =
+      (manual.length
+        ? '<h3 style="font-size:.85rem">' + Store.t('uploadNeeded') + '</h3>' +
+          manual.map(function (d) {
+            return '<div class="dl-doc missing">' +
+              '<span class="ico">' + App.icon('upload', 18) + '</span>' +
+              '<span class="grow small">' + App.escape(hi ? d.hi : d.en) + '</span>' +
+              '<button class="btn btn-ghost btn-sm">' + (hi ? 'चुनें' : 'Choose') + '</button></div>';
+          }).join('')
+        : '') +
+      (gen.length
+        ? '<h3 style="font-size:.85rem;margin-top:1rem">' + Store.t('autoGen') + '</h3>' +
+          gen.map(function (d) {
+            return '<div class="dl-doc">' +
+              '<span class="ico">' + App.icon('settings', 18) + '</span>' +
+              '<span class="grow small">' + App.escape(hi ? d.hi : d.en) + '</span></div>';
+          }).join('')
+        : '');
+  }
+
+  /* ------------------------------------------------------------ voice wiring */
+
+  function wireVoice() {
+    Voice.on('start', function () {
+      micBtn.classList.add('listening');
+      micWrap.classList.add('listening');
+      micStatus.textContent = Store.t('listening');
+      transcriptLive.textContent = '';
+    });
+    Voice.on('partial', function (t) { transcriptLive.textContent = t; });
+    Voice.on('end', function () {
+      micBtn.classList.remove('listening');
+      micWrap.classList.remove('listening');
+      micStatus.textContent = Store.t('tapToSpeak');
+    });
+    Voice.on('result', function (text) {
+      transcriptLive.textContent = '';
+      micStatus.textContent = Store.t('thinking');
+      Agent.handle(text);
+    });
+    Voice.on('speak-start', function () {
+      micBtn.classList.add('speaking');
+      micStatus.textContent = Store.t('speakingNow');
+    });
+    Voice.on('speak-end', function () {
+      micBtn.classList.remove('speaking');
+      micStatus.textContent = Store.t('tapToSpeak');
+    });
+    Voice.on('error', function (e) {
+      micBtn.classList.remove('listening');
+      micWrap.classList.remove('listening');
+      if (e.code !== 'no-speech') App.toast(e.message);
+    });
+  }
+
+  /* ------------------------------------------------------------ agent wiring */
+
+  function wireAgent() {
+    Agent.on('say', function (t) { addMsg('bot', t); });
+    Agent.on('heard', function (t) { addMsg('user', t); });
+
+    Agent.on('form-start', renderForm);
+    Agent.on('field-active', renderForm);
+    Agent.on('field-filled', renderForm);
+    Agent.on('field-cleared', renderForm);
+
+    Agent.on('locker-progress', function (ev) {
+      document.getElementById('locker-card').hidden = false;
+
+      var row = document.getElementById('dl-' + ev.key);
+      if (!row) {
+        row = document.createElement('div');
+        row.className = 'dl-doc';
+        row.id = 'dl-' + ev.key;
+        document.getElementById('locker-docs').appendChild(row);
+      }
+
+      var label = hi ? ev.req.hi : ev.req.en;
+
+      if (ev.status === 'fetching') {
+        row.className = 'dl-doc';
+        row.innerHTML = '<span class="ico"><span class="spinner"></span></span>' +
+          '<span class="grow small"><strong>' + App.escape(label) + '</strong><br>' +
+          '<span class="tiny muted">' + (hi ? 'ला रहे हैं…' : 'Fetching…') + '</span></span>';
+      } else if (ev.status === 'done') {
+        row.className = 'dl-doc fetched';
+        row.innerHTML = '<span class="ico">' + App.icon('check', 18) + '</span>' +
+          '<span class="grow small"><strong>' + App.escape(hi ? ev.doc.nameHi : ev.doc.name) + '</strong><br>' +
+          '<span class="tiny muted num">' + App.escape(ev.doc.docId) + '</span></span>';
+      } else {
+        row.className = 'dl-doc missing';
+        row.innerHTML = '<span class="ico">' + App.icon('upload', 18) + '</span>' +
+          '<span class="grow small">' + App.escape(label) + '</span>' +
+          '<span class="pill pill-amber">' + Store.t('uploadNeeded') + '</span>';
+      }
+    });
+
+    Agent.on('locker-done', function (res) {
+      document.getElementById('locker-status').textContent =
+        res.documents.length + ' ' + (hi ? 'मिले' : 'fetched');
+    });
+
+    Agent.on('review', function () {
+      renderForm();
+      document.getElementById('submit-row').style.display = 'flex';
+    });
+
+    Agent.on('submitted', renderReceipt);
+  }
+
+  /* ---------------------------------------------------------------- render */
+
+  function addMsg(who, text) {
+    var msg = document.createElement('div');
+    msg.className = 'msg msg-' + who;
+    msg.innerHTML = '<span class="msg-avatar">' +
+      App.icon(who === 'bot' ? 'sparkle' : 'user', 16) + '</span>' +
+      '<span class="msg-bubble">' + App.escape(text) + '</span>';
+    convoEl.appendChild(msg);
+    convoEl.scrollTop = convoEl.scrollHeight;
+  }
+
+  function renderForm() {
+    if (!Agent.service || !Agent.service.voiceForm) return;
+
+    var wrap = document.getElementById('vform');
+    wrap.innerHTML = '';
+    var current = Agent.currentField();
+
+    Agent.service.voiceForm.forEach(function (f) {
+      var value = Agent.displayValue(f);
+      var src = Agent.sources[f.id];
+      var isCurrent = current && current.id === f.id &&
+                      Agent.state !== 'review' && Agent.state !== 'done';
+
+      var row = document.createElement('div');
+      row.className = 'vfield ' + (isCurrent ? 'active' : (value ? 'filled' : 'pending'));
+
+      var pill = '';
+      if (src === 'digilocker') {
+        pill = '<span class="pill pill-green vfield-src">' + App.icon('folder', 12) + '</span>';
+      } else if (src === 'voice') {
+        pill = '<span class="pill pill-blue vfield-src">' + App.icon('mic', 12) + '</span>';
+      } else if (isCurrent) {
+        pill = '<span class="pill pill-amber vfield-src">…</span>';
+      }
+
+      row.innerHTML =
+        '<span class="vfield-label">' + App.escape(hi ? f.hi : f.en) +
+          '<small>' + App.escape(hi ? f.en : f.hi) + '</small></span>' +
+        '<span class="vfield-value">' + App.escape(value) + '</span>' + pill;
+
+      if (value && Agent.state !== 'done') {
+        row.style.cursor = 'pointer';
+        row.title = hi ? 'बदलने के लिए क्लिक करें' : 'Click to change';
+        row.addEventListener('click', function () {
+          Agent.fieldIndex = Agent.service.voiceForm.indexOf(f);
+          delete Agent.values[f.id];
+          delete Agent.sources[f.id];
+          Agent.state = 'field';
+          document.getElementById('submit-row').style.display = 'none';
+          Agent._askCurrent();
+        });
+      }
+
+      wrap.appendChild(row);
+    });
+
+    var pct = Agent.progress();
+    document.getElementById('progress').style.width = pct + '%';
+    document.getElementById('progress-label').textContent = pct + '%';
+  }
+
+  function renderReceipt(app) {
+    var el = document.getElementById('receipt');
+    el.hidden = false;
+    el.innerHTML =
+      '<div class="receipt">' +
+        '<h2>' + App.icon('check', 22) + (hi ? 'आवेदन जमा हो गया' : 'Application submitted') + '</h2>' +
+        '<p class="small muted" style="margin:0">' + Store.t('appNumber') + '</p>' +
+        '<div class="ack">' + App.escape(app.id) + '</div>' +
+        '<div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem">' +
+          '<span class="pill">' + Store.t('fee') + ': ₹' + app.charge + '</span>' +
+          '<span class="pill">' + App.icon('clock', 12) + app.slaDays + ' ' + Store.t('days') + '</span>' +
+          '<span class="pill pill-blue">' + App.icon('mic', 12) + (hi ? 'आवाज़ से' : 'By voice') + '</span>' +
+          (app.documents.length
+            ? '<span class="pill pill-green">' + App.icon('folder', 12) + app.documents.length + '</span>'
+            : '') +
+        '</div>' +
+        '<a class="btn" href="track.html">' + Store.t('navTrack') + ' ' + App.icon('arrowRight', 15) + '</a> ' +
+        '<button class="btn btn-ghost btn-icon" onclick="window.print()" aria-label="Print">' +
+          App.icon('printer', 16) + '</button>' +
+      '</div>';
+    document.getElementById('submit-row').style.display = 'none';
+    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  /* -------------------------------------------------------------- controls */
+
+  function wireControls() {
+    micBtn.addEventListener('click', function () {
+      Voice.warmUp();
+      if (Voice.isSpeaking()) { Voice.stopSpeaking(); return; }
+      Voice.toggle();
+    });
+
+    var input = document.getElementById('type-input');
+    function send() {
+      var v = input.value.trim();
+      if (!v) return;
+      input.value = '';
+      Agent.autoListen = false;
+      Agent.handle(v);
+    }
+    document.getElementById('btn-send').addEventListener('click', send);
+    input.addEventListener('keydown', function (e) { if (e.key === 'Enter') send(); });
+
+    document.getElementById('btn-submit').addEventListener('click', function () { Agent.submit(); });
+
+    document.getElementById('btn-edit').addEventListener('click', function () {
+      Agent.state = 'review';
+      Agent.say(hi
+        ? 'कौन सी जानकारी बदलनी है? नाम बोलिए, या नीचे उस पंक्ति पर क्लिक कीजिए।'
+        : 'Which detail should I change? Say its name, or click that row.');
+    });
+
+    document.getElementById('btn-change').addEventListener('click', function () {
+      Voice.stopSpeaking(); Voice.stopListening();
+      Agent.reset();
+      renderPicker();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.code === 'Space' && e.target === document.body) {
+        e.preventDefault();
+        micBtn.click();
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

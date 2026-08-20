@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apuni Sarkar · UK Gov Voice Info Teller | Government of Uttarakhand</title>
+  <meta name="description" content="Voice-first citizen advisor and autonomous form filler for Uttarakhand Government e-Services. Ask any question, verify documents, and apply by voice with DigiLocker.">
+  <link rel="stylesheet" href="assets/css/infoteller.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏛️</text></svg>">
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- ======================== Official Top Gov Strip ======================== -->
+  <div class="gov-top-bar">
+    <div class="gov-top-inner">
+      <div class="gov-flag-title">
+        <span>🇮🇳 Government of Uttarakhand · उत्तराखंड शासन</span>
+        <span style="opacity: 0.5">|</span>
+        <span>Right to Service Act Guaranteed</span>
+      </div>
+      <div class="accessibility-tools">
+        <button type="button" class="a11y-btn" id="btn-font-decrease" title="Decrease Text Size">A-</button>
+        <button type="button" class="a11y-btn" id="btn-font-reset" title="Normal Text Size">A</button>
+        <button type="button" class="a11y-btn" id="btn-font-increase" title="Increase Text Size">A+</button>
+        <button type="button" class="a11y-btn" id="btn-contrast-toggle" title="Toggle High Contrast Mode">👁️ High Contrast</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================== Main Header & Branding ======================== -->
+  <header class="portal-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <!-- SVG Vector of Uttarakhand Government Emblem -->
+        <svg class="uk-emblem" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="56" fill="#0B2545" stroke="#D97706" stroke-width="4"/>
+          <!-- Mountain Peaks -->
+          <path d="M20 78 L45 42 L65 68 L85 36 L100 78 Z" fill="#F8FAFC" stroke="#0B2545" stroke-width="2"/>
+          <path d="M45 42 L55 56 L65 48 L85 36 L70 65 Z" fill="#E2E8F0"/>
+          <!-- River Waves -->
+          <path d="M25 86 Q40 80 60 86 T95 86" stroke="#38BDF8" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M25 94 Q40 88 60 94 T95 94" stroke="#38BDF8" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <!-- Red Shield Center (Ashoka Emblem Representation) -->
+          <rect x="52" y="16" width="16" height="20" rx="3" fill="#DC2626" stroke="#FEF3C7" stroke-width="1.5"/>
+          <circle cx="60" cy="24" r="4" fill="#FEF3C7"/>
+        </svg>
+        <div class="brand-text">
+          <h1>
+            Apuni Sarkar · e-Sewa
+            <span class="badge-tag">Voice & Form AI</span>
+          </h1>
+          <p id="portal-sub-text">Citizen Information & Autonomous Application Advisor · Government of Uttarakhand</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <button type="button" class="btn btn-lang btn-sm" id="btn-lang-toggle">
+          🇮🇳 हिन्दी
+        </button>
+        <button type="button" class="btn btn-outline btn-sm" id="btn-mute-toggle">
+          🔊 Voice On
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================== Main Content ======================== -->
+  <main id="main-content">
+
+    <!-- Hero Voice Section -->
+    <section class="hero-voice-section">
+      <div class="hero-inner">
+        <span class="hero-eyebrow">
+          <span>🎙️</span> AI Citizen Service Voice Desk & Auto-Form Filler
+        </span>
+        <h2 class="hero-title" id="hero-title-text">Ask Any Question About Uttarakhand Government Services</h2>
+        <p class="hero-subtitle" id="hero-subtitle-text">
+          Speak naturally in plain English or Hindi. Get instant official factsheets on required documents, application fees, RTS delivery deadlines, and fill applications by voice with DigiLocker.
+        </p>
+
+        <!-- Siri & Alexa Style Glowing Aurora Orb -->
+        <div class="mic-interactive-container">
+          <div class="siri-orb-wrapper" id="siri-orb-wrapper" title="Click to talk (Hands-Free continuous mode)">
+            <div class="siri-orb-glow idle" id="siri-orb-glow"></div>
+            <button type="button" class="hero-mic-btn idle" id="hero-mic-btn" aria-label="Siri Style Voice Assistant" title="Click to speak">
+              🎙️
+            </button>
+          </div>
+
+          <!-- Animated Waveform Visualizer -->
+          <div class="voice-waveform idle" id="voice-waveform">
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+            <div class="waveform-bar"></div>
+          </div>
+
+          <div class="status-tag idle" id="voice-status-tag">
+            Click Mic or Speak to Ask
+          </div>
+
+          <!-- Live Subtitle & Transcript -->
+          <div class="live-transcript" id="live-transcript" aria-live="polite">
+            "Click the microphone and say: 'What documents do I need for Income Certificate?'"
+          </div>
+        </div>
+
+        <!-- Fallback Search Input -->
+        <div class="search-fallback-row">
+          <input type="search" class="search-fallback-input" id="main-search-input" placeholder="Or type your question here (e.g. Income certificate, Domicile, Old Age Pension, FIR)..." autocomplete="off">
+          <button type="button" class="search-fallback-btn" id="btn-search-submit">
+            Search Info →
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- One-Tap Sample Question Prompts -->
+    <section class="quick-questions-wrapper">
+      <div class="quick-questions-card">
+        <div class="quick-header" id="quick-header-text">
+          <span>💡</span> Popular Citizen Inquiries (Click to Ask Aloud):
+        </div>
+        <div class="chips-scroller" id="sample-questions-chips">
+          <!-- Dynamically populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Dynamic Factsheet Container (Rendered when question is asked) -->
+    <section class="factsheet-container" id="factsheet-container" hidden>
+      <!-- Dynamically populated with Factsheet Card -->
+    </section>
+
+    <!-- Browse Directory by Department -->
+    <section class="directory-section">
+      <div class="section-title-row">
+        <h2 id="dir-title-text">Explore Uttarakhand Services by Department</h2>
+        <p id="dir-sub-text">Verified public services guaranteed under the Uttarakhand Right to Service (RTS) Act.</p>
+      </div>
+
+      <!-- Department Filter Tabs -->
+      <div class="department-tabs-row" id="department-tabs">
+        <!-- Dynamically populated -->
+      </div>
+
+      <!-- Service Catalogue Grid -->
+      <div class="services-grid" id="services-catalogue-grid">
+        <!-- Dynamically populated -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Floating Citizen AI Assistant Trigger -->
+  <div class="floating-assistance-badge" id="floating-assistance-badge">
+    <button type="button" class="btn-float-assist" id="btn-float-assist" aria-label="Open AI Assistance Desk">
+      <span class="float-assist-icon">🤖</span>
+      <span class="float-assist-text" id="float-assist-label">AI Assistance Desk</span>
+    </button>
+  </div>
+
+  <!-- Container for Talk-to-Apply Modals -->
+  <div id="modal-root"></div>
+
+  <!-- ======================== Official Footer ======================== -->
+  <footer class="portal-footer">
+    <div class="footer-container">
+      <div class="footer-creds">
+        <p><strong>Uttarakhand Right to Service Commission & ITDA</strong></p>
+        <p>State Portal of Uttarakhand · Apuni Sarkar (e-Services) Voice Assistance & Autonomous Form Filling</p>
+        <p style="margin-top: 0.5rem; opacity: 0.75">Zero Cost Architecture · Integrated with Web Speech API & DigiLocker</p>
+      </div>
+      <div class="footer-links">
+        <a href="#main-content">Back to Top ↑</a>
+        <span style="opacity: 0.3">|</span>
+        <a href="javascript:void(0)" onclick="window.print()">Print Factsheet</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="assets/data/uk-services-kb.js"></script>
+  <script src="assets/js/infoteller-engine.js"></script>
+</body>
+</html>

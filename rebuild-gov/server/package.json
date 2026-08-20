@@ -1,0 +1,14 @@
+{
+  "name": "rebuild-gov-server",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Static host + Bhashini speech proxy + DigiLocker proxy for the rebuild-gov voice portal. Zero dependencies.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
